@@ -108,6 +108,7 @@ function Provider({ children }) {
     e.stopPropagation();
     deleteData();
   };
+  // ***** editting started  *******
   const onClickEdit = (e, newItem) => {
     e.stopPropagation();
     editData(newItem);
