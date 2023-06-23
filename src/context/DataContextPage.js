@@ -45,6 +45,25 @@ function Provider({ children }) {
     } catch (error) {}
   };
 
+  const editData = async (id, NewTitle, NewDescription, NewPrice) => {
+    try {
+      const res = await axios.put(
+        `https://dashboard-first-default-rtdb.firebaseio.com/dashboard/${id}.json`,
+        {
+          title: NewTitle,
+          description: NewDescription,
+          price: NewPrice,
+        }
+      );
+      const edittingData = rows.map((item) => {
+        if (item.id === id) {
+          return { ...item, ...res?.data };
+        }
+        return item;
+      });
+      setRows(edittingData);
+    } catch (error) {}
+  };
   const columns = [
     {
       field: "id",
@@ -87,12 +106,11 @@ function Provider({ children }) {
   ];
   const onClickDelete = (e) => {
     e.stopPropagation();
-    // alert("clicked delete");
     deleteData();
   };
-  const onClickEdit = (e) => {
+  const onClickEdit = (e, newItem) => {
     e.stopPropagation();
-    alert("clicked");
+    editData(newItem);
   };
   const handleOpen = () => setOpen(true);
 
