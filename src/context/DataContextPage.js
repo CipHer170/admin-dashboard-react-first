@@ -5,7 +5,9 @@ import { Button } from "@mui/material";
 const DataContext = createContext();
 function Provider({ children }) {
   const [rows, setRows] = useState([]);
-  const [row, setRow] = useState({});
+  // const [row, setRow] = useState({});
+  const [open, setOpen] = useState(false);
+
   // const {id,title,description, price}=
   const fetchData = async () => {
     const response = await axios.get(
@@ -18,20 +20,29 @@ function Provider({ children }) {
     try {
       const response = await axios.post(
         `https://dashboard-first-default-rtdb.firebaseio.com/dashboard.json`,
-        {
-          title: "First title",
-          description: "hello world",
-          price: 100_000_000,
-          image: `blob image`,
-        }
+        // rows
+        item
       );
+      const newData = { ...item, id: response?.data?.name };
 
-      setRow([...rows, row]);
+      const updateRows = [newData, ...rows];
+      setRows(updateRows);
     } catch (error) {
       alert(
         "Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug"
       );
     }
+  };
+  const deleteData = async (id) => {
+    try {
+      await axios.delete(
+        `https://dashboard-first-default-rtdb.firebaseio.com/dashboard/${id}.json`
+      );
+      const changeData = rows.filter((item) => {
+        return item.id !== id;
+      });
+      setRows(changeData);
+    } catch (error) {}
   };
 
   const columns = [
@@ -69,19 +80,22 @@ function Provider({ children }) {
     {
       field: "action_delete",
       sortable: false,
-      renderCell: (params) => {
-        return <Button onClick={onClickDelete}> Delete</Button>;
+      renderCell: ({ id }) => {
+        return <Button onClick={() => deleteData(id)}> Delete</Button>;
       },
     },
   ];
   const onClickDelete = (e) => {
     e.stopPropagation();
-    alert("clicked delete");
+    // alert("clicked delete");
+    deleteData();
   };
   const onClickEdit = (e) => {
     e.stopPropagation();
     alert("clicked");
   };
+  const handleOpen = () => setOpen(true);
+
   const value = {
     fetchData,
     createData,
@@ -89,14 +103,18 @@ function Provider({ children }) {
     columns,
     onClickEdit,
     onClickDelete,
+    handleOpen,
+    open,
+    setOpen,
+    deleteData,
   };
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
 }
 export { DataContext };
 export default Provider;
 
-export function dataFormatter(data = []) {
-  const objectToArray = Object.entries(data);
+export function dataFormatter(data = {}) {
+  const objectToArray = Object.entries(data || {});
   const newData = objectToArray.map((item) => ({
     ...item[1],
     id: item[0],

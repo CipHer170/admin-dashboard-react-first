@@ -1,17 +1,29 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import TablePage from "./components/DataGrid/TablePage";
 import { DataContext } from "./context/DataContextPage";
+import { Button, Stack } from "@mui/material";
+import NewItem from "./components/NewItem/NewItem";
 function App() {
-  // const data = { id, title, description, price };
+  const { handleOpen } = useContext(DataContext);
   const { fetchData } = useContext(DataContext);
+
   useEffect(() => {
     fetchData();
-  });
+  }, []);
+
   return (
     <div className="App">
-      <h2>Table</h2>
+      {/* ******ADD MENU ********** */}
+      <Stack direction="row" justifyContent="space-between" alignItems="center">
+        <h2>Table</h2>
+        <Button variant="contained" onClick={handleOpen}>
+          Add
+        </Button>
+      </Stack>
       <TablePage />
       {/* <button onClick={createData}>click</button> */}
+
+      {handleOpen && <NewItem />}
     </div>
   );
 }

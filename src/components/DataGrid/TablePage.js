@@ -11,7 +11,6 @@ function TablePage() {
         rows={rows}
         columns={columns}
         pageSize={5}
-        editMode={true}
         checkboxSelection
         disableSelectionOnClick
         initialState={{
