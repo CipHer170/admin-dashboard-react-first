@@ -33,6 +33,7 @@ function Provider({ children }) {
       );
     }
   };
+  // ******delete data**********
   const deleteData = async (id) => {
     try {
       await axios.delete(
@@ -45,15 +46,13 @@ function Provider({ children }) {
     } catch (error) {}
   };
 
-  const editData = async (id, NewTitle, NewDescription, NewPrice) => {
+  // ***editting data********
+  const editData = async (id, newItem) => {
+    // NewTitle, NewDescription, NewPrice
     try {
       const res = await axios.put(
         `https://dashboard-first-default-rtdb.firebaseio.com/dashboard/${id}.json`,
-        {
-          title: NewTitle,
-          description: NewDescription,
-          price: NewPrice,
-        }
+        newItem
       );
       const edittingData = rows.map((item) => {
         if (item.id === id) {
@@ -64,6 +63,7 @@ function Provider({ children }) {
       setRows(edittingData);
     } catch (error) {}
   };
+  // *****columns*****
   const columns = [
     {
       field: "id",
@@ -93,7 +93,7 @@ function Provider({ children }) {
       field: "action_edit",
       sortable: false,
       renderCell: (params) => {
-        return <Button onClick={onClickEdit}> Edit</Button>;
+        return <Button onClick={editData}> Edit</Button>;
       },
     },
     {
@@ -104,15 +104,16 @@ function Provider({ children }) {
       },
     },
   ];
-  const onClickDelete = (e) => {
-    e.stopPropagation();
-    deleteData();
-  };
-  // ***** editting started  *******
-  const onClickEdit = (e, newItem) => {
-    e.stopPropagation();
-    editData(newItem);
-  };
+
+  // const onClickDelete = (e) => {
+  //   e.stopPropagation();
+  //   deleteData();
+  // };
+  // // ***** editting started  *******
+  // const onClickEdit = (e, newItem) => {
+  //   e.stopPropagation();
+  //   editData(newItem);
+  // };
   const handleOpen = () => setOpen(true);
 
   const value = {
@@ -120,8 +121,8 @@ function Provider({ children }) {
     createData,
     rows,
     columns,
-    onClickEdit,
-    onClickDelete,
+    // onClickEdit,
+    // onClickDelete,
     handleOpen,
     open,
     setOpen,
