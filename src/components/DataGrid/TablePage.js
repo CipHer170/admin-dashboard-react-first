@@ -10,7 +10,7 @@ function TablePage() {
       <DataGrid
         rows={rows}
         columns={columns}
-        pageSize={5}
+        pageSize={15}
         checkboxSelection
         disableSelectionOnClick
         initialState={{

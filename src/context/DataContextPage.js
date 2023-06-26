@@ -3,12 +3,13 @@ import axios from "axios";
 import { Button } from "@mui/material";
 
 const DataContext = createContext();
-function Provider({ children }) {
-  const [rows, setRows] = useState([]);
-  // const [row, setRow] = useState({});
-  const [open, setOpen] = useState(false);
 
-  // const {id,title,description, price}=
+function Provider({ children, setPrice, setTitle, setDescription, setImage }) {
+  const [rows, setRows] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [edit, setEdit] = useState(null);
+
+  // coonst countElements ********* u r here **********
   const fetchData = async () => {
     const response = await axios.get(
       `https://dashboard-first-default-rtdb.firebaseio.com/dashboard.json`
@@ -25,7 +26,7 @@ function Provider({ children }) {
       );
       const newData = { ...item, id: response?.data?.name };
 
-      const updateRows = [newData, ...rows];
+      const updateRows = [...rows, newData];
       setRows(updateRows);
     } catch (error) {
       alert(
@@ -45,31 +46,45 @@ function Provider({ children }) {
       setRows(changeData);
     } catch (error) {}
   };
-
-  // ***editting data********
-  const editData = async (id, newItem) => {
-    // NewTitle, NewDescription, NewPrice
+  // ***** update button****
+  const updateData = async (id, newItem) => {
     try {
-      const res = await axios.put(
+      await axios.put(
         `https://dashboard-first-default-rtdb.firebaseio.com/dashboard/${id}.json`,
         newItem
       );
-      const edittingData = rows.map((item) => {
+      const newData = { ...newItem, id };
+      const updateData = rows.map((item) => {
         if (item.id === id) {
-          return { ...item, ...res?.data };
+          return newData;
         }
         return item;
       });
-      setRows(edittingData);
-    } catch (error) {}
+      setRows(updateData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // ***** edit button *****
+  const editData = (oldItem = {}) => {
+    const { title = "", price = "", description = "", id = "" } = oldItem || {};
+    setTitle(title);
+    setPrice(price);
+    setDescription(description);
+    setOpen(true);
+    setEdit(id);
   };
   // *****columns*****
   const columns = [
     {
-      field: "id",
-      numeric: false,
+      field: "#",
+      type: "number",
       disablePadding: true,
-      width: 50,
+      width: 150,
+      // valueFormatter: ({ value }) =>
+      //   rows.map((item, index) => {
+      //     return index + 1;
+      //   }),
     },
     {
       field: "title",
@@ -92,8 +107,8 @@ function Provider({ children }) {
     {
       field: "action_edit",
       sortable: false,
-      renderCell: (params) => {
-        return <Button onClick={editData}> Edit</Button>;
+      renderCell: ({ row: oldItem }) => {
+        return <Button onClick={() => editData(oldItem)}> Edit</Button>;
       },
     },
     {
@@ -105,31 +120,32 @@ function Provider({ children }) {
     },
   ];
 
-  // const onClickDelete = (e) => {
-  //   e.stopPropagation();
-  //   deleteData();
-  // };
-  // // ***** editting started  *******
-  // const onClickEdit = (e, newItem) => {
-  //   e.stopPropagation();
-  //   editData(newItem);
-  // };
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    setTitle("");
+    setDescription("");
+    setPrice("");
+    setImage("");
+    setEdit(null);
+    setOpen(true);
+  };
 
   const value = {
     fetchData,
     createData,
     rows,
     columns,
-    // onClickEdit,
-    // onClickDelete,
+    edit,
+    setEdit,
+    editData,
     handleOpen,
     open,
     setOpen,
     deleteData,
+    updateData,
   };
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
 }
+
 export { DataContext };
 export default Provider;
 
