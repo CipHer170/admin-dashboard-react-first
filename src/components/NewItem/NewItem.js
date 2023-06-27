@@ -136,10 +136,11 @@ function NewItem({
             <Stack direction="row">
               <Button>
                 <BsCloudUpload />
+                Upload file
               </Button>
 
               <Button variant="contained" onClick={handleAddNewItem}>
-                {edit!==null ? "Update" : "Save"}
+                {edit !== null ? "Update" : "Save"}
               </Button>
             </Stack>
           </Stack>

@@ -15,7 +15,6 @@ function App() {
     setPrice,
     setTitle,
     setDescription,
-    image,
     setImage,
   };
 

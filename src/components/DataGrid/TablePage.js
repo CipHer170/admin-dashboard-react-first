@@ -9,6 +9,7 @@ function TablePage() {
       {" "}
       <DataGrid
         rows={rows}
+ 
         columns={columns}
         pageSize={15}
         checkboxSelection

@@ -9,7 +9,12 @@ function Provider({ children, setPrice, setTitle, setDescription, setImage }) {
   const [open, setOpen] = useState(false);
   const [edit, setEdit] = useState(null);
 
-  // coonst countElements ********* u r here **********
+  // const countElements
+  const elementNumber = () => {
+    rows.map((item, index) => {
+      return index + 1;
+    });
+  };
   const fetchData = async () => {
     const response = await axios.get(
       `https://dashboard-first-default-rtdb.firebaseio.com/dashboard.json`
@@ -77,14 +82,12 @@ function Provider({ children, setPrice, setTitle, setDescription, setImage }) {
   // *****columns*****
   const columns = [
     {
-      field: "#",
+      field: "№",
       type: "number",
-      disablePadding: true,
       width: 150,
-      // valueFormatter: ({ value }) =>
-      //   rows.map((item, index) => {
-      //     return index + 1;
-      //   }),
+      renderCell: ({ id }) => {
+        return rows.findIndex((el) => el.id === id) + 1;
+      },
     },
     {
       field: "title",
@@ -100,6 +103,12 @@ function Provider({ children, setPrice, setTitle, setDescription, setImage }) {
     },
     {
       field: "price",
+      numeric: false,
+      disablePadding: true,
+      width: 100,
+    },
+    {
+      field: "image",
       numeric: false,
       disablePadding: true,
       width: 100,
