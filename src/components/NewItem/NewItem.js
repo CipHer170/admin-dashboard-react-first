@@ -19,6 +19,8 @@ function NewItem({
   setDescription,
   image,
   setImage,
+  amount,
+  setAmount,
 }) {
   const { rows, open, setOpen, createData, edit, updateData } =
     useContext(DataContext);
@@ -60,6 +62,10 @@ function NewItem({
     e.preventDefault();
     setDescription(e.target.value);
   };
+  const handleAmount = (e) => {
+    e.preventDefault();
+    setAmount(e.target.value);
+  };
 
   const handleTitle = (e) => {
     e.preventDefault();
@@ -69,7 +75,7 @@ function NewItem({
   const handleAddNewItem = (event) => {
     event.preventDefault();
     if (num && event !== "") {
-      const newProduct = { title, description, price, image };
+      const newProduct = { title, description, price, image, amount };
       if (rows !== "") {
         if (edit !== null) {
           updateData(edit, newProduct);
@@ -130,6 +136,15 @@ function NewItem({
                   value={price}
                   onChange={handleChangePrice}
                   required
+                />
+              </Stack>
+              <Stack>
+                <TextField
+                  // multiline={true}
+                  // minRows={5}
+                  type="text"
+                  value={amount}
+                  onChange={handleAmount}
                 />
               </Stack>
             </Stack>

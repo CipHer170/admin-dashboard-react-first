@@ -5,6 +5,7 @@ import Wrapper from "./components/Wrapper";
 function App() {
   const [price, setPrice] = useState("");
   const [title, setTitle] = useState("");
+  const [amount, setAmount] = useState("");
   const [image, setImage] = useState("");
   const [description, setDescription] = useState("");
 
@@ -16,6 +17,8 @@ function App() {
     setTitle,
     setDescription,
     setImage,
+    amount,
+    setAmount,
   };
 
   return (

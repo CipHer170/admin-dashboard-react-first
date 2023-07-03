@@ -9,12 +9,6 @@ function Provider({ children, setPrice, setTitle, setDescription, setImage }) {
   const [open, setOpen] = useState(false);
   const [edit, setEdit] = useState(null);
 
-  // const countElements
-  const elementNumber = () => {
-    rows.map((item, index) => {
-      return index + 1;
-    });
-  };
   const fetchData = async () => {
     const response = await axios.get(
       `https://dashboard-first-default-rtdb.firebaseio.com/dashboard.json`
@@ -113,6 +107,16 @@ function Provider({ children, setPrice, setTitle, setDescription, setImage }) {
       disablePadding: true,
       width: 100,
     },
+
+    {
+      field: "amount",
+      numeric: true,
+      // disablePadding: true,
+      type: "number",
+      width: 100,
+      editable: true,
+    },
+
     {
       field: "action_edit",
       sortable: false,
