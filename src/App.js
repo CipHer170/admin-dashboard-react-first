@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Provider from "./context/DataContextPage";
 import Wrapper from "./components/Wrapper";
+import "./App.scss";
 
 function App() {
   const [price, setPrice] = useState("");
@@ -19,6 +20,7 @@ function App() {
     setImage,
     amount,
     setAmount,
+    image,
   };
 
   return (

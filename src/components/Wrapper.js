@@ -21,6 +21,7 @@ export default function Wrapper({ dataProps }) {
           Add
         </Button>
       </Stack>
+      {/* <UploadFile /> */}
       <TablePage />
       {handleOpen && <NewItem {...dataProps} />}
     </div>

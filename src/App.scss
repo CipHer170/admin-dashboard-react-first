@@ -1,0 +1,14 @@
+img {
+  object-fit: contain;
+  width: 100px;
+  // border: 1px solid red;
+}
+.hidden {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  line-height: 0;
+}

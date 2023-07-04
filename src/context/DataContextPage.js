@@ -1,6 +1,7 @@
 import { createContext, useState } from "react";
 import axios from "axios";
 import { Button } from "@mui/material";
+import { IoIosImages } from "react-icons/io";
 
 const DataContext = createContext();
 
@@ -8,7 +9,7 @@ function Provider({ children, setPrice, setTitle, setDescription, setImage }) {
   const [rows, setRows] = useState([]);
   const [open, setOpen] = useState(false);
   const [edit, setEdit] = useState(null);
-
+  // *****getting data*****
   const fetchData = async () => {
     const response = await axios.get(
       `https://dashboard-first-default-rtdb.firebaseio.com/dashboard.json`
@@ -60,18 +61,23 @@ function Provider({ children, setPrice, setTitle, setDescription, setImage }) {
         return item;
       });
       setRows(updateData);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
   // ***** edit button *****
   const editData = (oldItem = {}) => {
-    const { title = "", price = "", description = "", id = "" } = oldItem || {};
+    const {
+      title = "",
+      price = "",
+      description = "",
+      id = "",
+      image = { value },
+    } = oldItem || {};
     setTitle(title);
     setPrice(price);
     setDescription(description);
     setOpen(true);
     setEdit(id);
+    setImage(image);
   };
   // *****columns*****
   const columns = [
@@ -106,15 +112,18 @@ function Provider({ children, setPrice, setTitle, setDescription, setImage }) {
       numeric: false,
       disablePadding: true,
       width: 100,
+      renderCell: ({ value = "" } = {}) => {
+        return value === "" ? <IoIosImages /> : <img src={value} alt="name" />;
+      },
     },
 
     {
       field: "amount",
       numeric: true,
-      // disablePadding: true,
+      disablePadding: true,
       type: "number",
       width: 100,
-      editable: true,
+      // editable: true,
     },
 
     {

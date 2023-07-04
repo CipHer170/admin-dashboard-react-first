@@ -6,10 +6,11 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { DataContext } from "../../context/DataContextPage";
 import { BsCloudUpload } from "react-icons/bs";
-
+import UploadFile from "../UploadFile/UploafFile";
+import { dataFormatter } from "../../context/DataContextPage";
 function NewItem({
   price,
   description,
@@ -22,6 +23,8 @@ function NewItem({
   amount,
   setAmount,
 }) {
+  const images = dataFormatter(image);
+  const imgGetter = useRef(null);
   const { rows, open, setOpen, createData, edit, updateData } =
     useContext(DataContext);
   const handleClose = () => setOpen(false);
@@ -62,20 +65,32 @@ function NewItem({
     e.preventDefault();
     setDescription(e.target.value);
   };
+
   const handleAmount = (e) => {
     e.preventDefault();
     setAmount(e.target.value);
+  };
+  // ***upload image***
+  const handleUploadClick = (e) => {
+    if (e.target.files.length !== 0) {
+      const reader = new FileReader();
+      reader.readAsDataURL(e.target.files[0]);
+      reader.onload = function () {
+        setImage(reader.result);
+      };
+      e.target = null;
+    }
   };
 
   const handleTitle = (e) => {
     e.preventDefault();
     setTitle(e.target.value);
   };
-
+  // ***add new item***
   const handleAddNewItem = (event) => {
     event.preventDefault();
-    if (num && event !== "") {
-      const newProduct = { title, description, price, image, amount };
+    const newProduct = { title, description, price, image, amount };
+    if (title.trim().length > 0 && price >= 1 && amount >= 1) {
       if (rows !== "") {
         if (edit !== null) {
           updateData(edit, newProduct);
@@ -84,12 +99,16 @@ function NewItem({
         }
       }
     } else {
-      alert("check price");
+      alert("check all fileds");
     }
 
     setOpen(false);
   };
 
+  const handleClickPickImg = () => {
+    imgGetter.current.click();
+    console.log(image);
+  };
   return (
     <Stack>
       <Modal
@@ -139,6 +158,9 @@ function NewItem({
                 />
               </Stack>
               <Stack>
+                <Typography>
+                  <label>Amount</label>
+                </Typography>
                 <TextField
                   // multiline={true}
                   // minRows={5}
@@ -149,11 +171,25 @@ function NewItem({
               </Stack>
             </Stack>
             <Stack direction="row">
-              <Button>
-                <BsCloudUpload />
-                Upload file
+              <input
+                ref={imgGetter}
+                className="hidden"
+                type="file"
+                onChange={(e) => handleUploadClick(e)}
+              />
+              <Button onClick={handleClickPickImg}>
+                {edit && image !== "" ? (
+                  <img
+                    src={image}
+                    alt={title}
+                    width={"200px"}
+                    height={"200px"}
+                  />
+                ) : (
+                  <BsCloudUpload />
+                )}
               </Button>
-
+              {/* <img src={rows?.image} /> */}
               <Button variant="contained" onClick={handleAddNewItem}>
                 {edit !== null ? "Update" : "Save"}
               </Button>
