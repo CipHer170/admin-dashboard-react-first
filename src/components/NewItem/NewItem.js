@@ -9,8 +9,10 @@ import {
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { DataContext } from "../../context/DataContextPage";
 import { BsCloudUpload } from "react-icons/bs";
-import UploadFile from "../UploadFile/UploafFile";
+import { AiOutlineClose } from "react-icons/ai";
 import { dataFormatter } from "../../context/DataContextPage";
+import UploadFile from "../UploadFile/UploafFile";
+
 function NewItem({
   price,
   description,
@@ -118,6 +120,13 @@ function NewItem({
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+          {/***************** u r here adding exit button */}
+          <Button
+            onClick={setOpen(false)}
+            style={{ position: "absolute", right: "50px", top: "10px" }}
+          >
+            <AiOutlineClose />
+          </Button>
           <Typography variant={"h2"}>
             {edit !== null ? "Edit element" : "Add new item"}
           </Typography>

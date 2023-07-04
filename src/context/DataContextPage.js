@@ -2,6 +2,8 @@ import { createContext, useState } from "react";
 import axios from "axios";
 import { Button } from "@mui/material";
 import { IoIosImages } from "react-icons/io";
+import { FaRegEdit } from "react-icons/fa";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 const DataContext = createContext();
 
@@ -9,6 +11,12 @@ function Provider({ children, setPrice, setTitle, setDescription, setImage }) {
   const [rows, setRows] = useState([]);
   const [open, setOpen] = useState(false);
   const [edit, setEdit] = useState(null);
+  const styleBtn = {
+    // color: "red",
+    width: "20px",
+    height: "20px",
+    // backgroundColor: "blue",
+  };
   // *****getting data*****
   const fetchData = async () => {
     const response = await axios.get(
@@ -113,7 +121,11 @@ function Provider({ children, setPrice, setTitle, setDescription, setImage }) {
       disablePadding: true,
       width: 100,
       renderCell: ({ value = "" } = {}) => {
-        return value === "" ? <IoIosImages /> : <img src={value} alt="name" />;
+        return value === "" ? (
+          <IoIosImages style={styleBtn} />
+        ) : (
+          <img src={value} alt="name" />
+        );
       },
     },
 
@@ -130,14 +142,23 @@ function Provider({ children, setPrice, setTitle, setDescription, setImage }) {
       field: "action_edit",
       sortable: false,
       renderCell: ({ row: oldItem }) => {
-        return <Button onClick={() => editData(oldItem)}> Edit</Button>;
+        return (
+          <Button onClick={() => editData(oldItem)}>
+            <FaRegEdit style={styleBtn} />
+          </Button>
+        );
       },
     },
     {
       field: "action_delete",
       sortable: false,
       renderCell: ({ id }) => {
-        return <Button onClick={() => deleteData(id)}> Delete</Button>;
+        return (
+          <Button onClick={() => deleteData(id)}>
+            {" "}
+            <RiDeleteBin6Line style={styleBtn} />
+          </Button>
+        );
       },
     },
   ];
