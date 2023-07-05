@@ -6,12 +6,10 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { DataContext } from "../../context/DataContextPage";
 import { BsCloudUpload } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
-import { dataFormatter } from "../../context/DataContextPage";
-import UploadFile from "../UploadFile/UploafFile";
 
 function NewItem({
   price,
@@ -25,7 +23,6 @@ function NewItem({
   amount,
   setAmount,
 }) {
-  const images = dataFormatter(image);
   const imgGetter = useRef(null);
   const { rows, open, setOpen, createData, edit, updateData } =
     useContext(DataContext);
@@ -38,7 +35,8 @@ function NewItem({
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 700,
+    width: "70%",
+    height: "80%",
     minHeight: 450,
     bgcolor: "background.paper",
     border: "2px solid #000",
@@ -92,7 +90,8 @@ function NewItem({
   const handleAddNewItem = (event) => {
     event.preventDefault();
     const newProduct = { title, description, price, image, amount };
-    if (title.trim().length > 0 && price >= 1 && amount >= 1) {
+
+    if (num && title.trim().length > 0 && price >= 1 && amount >= 1) {
       if (rows !== "") {
         if (edit !== null) {
           updateData(edit, newProduct);
@@ -119,11 +118,11 @@ function NewItem({
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={style} className="modalPage">
           {/***************** u r here adding exit button */}
           <Button
-            onClick={setOpen(false)}
-            style={{ position: "absolute", right: "50px", top: "10px" }}
+            // onClick={setOpen(false)}
+            style={{ position: "absolute", right: "5%", top: "1%" }}
           >
             <AiOutlineClose />
           </Button>
@@ -155,53 +154,68 @@ function NewItem({
                   onChange={handleDescription}
                 />
               </Stack>
-              <Typography>
-                <label>Price</label>
-              </Typography>
-              <Stack>
-                <TextField
-                  type="text"
-                  value={price}
-                  onChange={handleChangePrice}
-                  required
-                />
-              </Stack>
-              <Stack>
-                <Typography>
-                  <label>Amount</label>
-                </Typography>
-                <TextField
-                  // multiline={true}
-                  // minRows={5}
-                  type="text"
-                  value={amount}
-                  onChange={handleAmount}
-                />
-              </Stack>
-            </Stack>
-            <Stack direction="row">
-              <input
-                ref={imgGetter}
-                className="hidden"
-                type="file"
-                onChange={(e) => handleUploadClick(e)}
-              />
-              <Button onClick={handleClickPickImg}>
-                {edit && image !== "" ? (
-                  <img
-                    src={image}
-                    alt={title}
-                    width={"200px"}
-                    height={"200px"}
+              {/* *** price amount */}
+              <Stack flexDirection={"row"} justifyContent={"space-evenly"}>
+                <Stack>
+                  <Typography>
+                    <label>Price</label>
+                  </Typography>
+                  <TextField
+                    type="text"
+                    value={price}
+                    onChange={handleChangePrice}
+                    required
                   />
-                ) : (
-                  <BsCloudUpload />
-                )}
-              </Button>
-              {/* <img src={rows?.image} /> */}
-              <Button variant="contained" onClick={handleAddNewItem}>
-                {edit !== null ? "Update" : "Save"}
-              </Button>
+                </Stack>
+
+                <Stack>
+                  <Typography>
+                    <label>Amount</label>
+                  </Typography>
+                  <TextField
+                    // multiline={true}
+                    // minRows={5}
+                    type="text"
+                    value={amount}
+                    onChange={handleAmount}
+                  />
+                </Stack>
+              </Stack>
+
+              {/* *** image button */}
+              <Stack
+                flexDirection={"row"}
+                justifyContent={"space-evenly"}
+                height={"150px"}
+              >
+                <Stack width={"60%"}>
+                  <input
+                    ref={imgGetter}
+                    className="hidden"
+                    type="file"
+                    onChange={(e) => handleUploadClick(e)}
+                  />
+                  <Button onClick={handleClickPickImg}>
+                    {edit ? (
+                      <img
+                        src={image}
+                        alt={title}
+                        width={"200px"}
+                        height={"200px"}
+                      />
+                    ) : (
+                      <BsCloudUpload />
+                    )}
+                  </Button>
+                </Stack>
+                <Stack sx={{ height: "40px" }}>
+                  {" "}
+                  {/* <img src={rows?.image} /> */}{" "}
+                  <Button variant="contained" onClick={handleAddNewItem}>
+                    {edit !== null ? "Update" : "Save"}
+                  </Button>
+                </Stack>
+              </Stack>
             </Stack>
           </Stack>
         </Box>
