@@ -27,7 +27,7 @@ function NewItem({
   const { rows, open, setOpen, createData, edit, updateData } =
     useContext(DataContext);
   const handleClose = () => setOpen(false);
-
+  const [clickImgBtn, setClickImgBtn] = useState(false);
   const [num, setNum] = useState(true);
 
   const style = {
@@ -36,7 +36,7 @@ function NewItem({
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: "70%",
-    height: "80%",
+    height: "65%",
     minHeight: 450,
     bgcolor: "background.paper",
     border: "2px solid #000",
@@ -108,7 +108,19 @@ function NewItem({
 
   const handleClickPickImg = () => {
     imgGetter.current.click();
-    console.log(image);
+  };
+  // const showImg =
+
+  // *** styled btn***
+  const styledBtn = {
+    width: "inherit",
+    height: "inherit",
+    padding: "0",
+    position: "relative",
+  };
+  const styledImg = {
+    paddingLeft: "10px",
+    maxWidth: "100%",
   };
   return (
     <Stack>
@@ -121,7 +133,10 @@ function NewItem({
         <Box sx={style} className="modalPage">
           {/***************** u r here adding exit button */}
           <Button
-            // onClick={setOpen(false)}
+            onClick={() => {
+              edit ? setOpen(false) : setOpen(!false);
+              return;
+            }}
             style={{ position: "absolute", right: "5%", top: "1%" }}
           >
             <AiOutlineClose />
@@ -156,7 +171,7 @@ function NewItem({
               </Stack>
               {/* *** price amount */}
               <Stack flexDirection={"row"} justifyContent={"space-evenly"}>
-                <Stack>
+                <Stack width={"50%"}>
                   <Typography>
                     <label>Price</label>
                   </Typography>
@@ -168,7 +183,7 @@ function NewItem({
                   />
                 </Stack>
 
-                <Stack>
+                <Stack width={"50%"}>
                   <Typography>
                     <label>Amount</label>
                   </Typography>
@@ -185,32 +200,50 @@ function NewItem({
               {/* *** image button */}
               <Stack
                 flexDirection={"row"}
-                justifyContent={"space-evenly"}
+                justifyContent={"space-between"}
                 height={"150px"}
+                alignItems={"end"}
+                // sx={{ backgroundColor: "blue" }}
               >
-                <Stack width={"60%"}>
+                <Stack height={"100%"} width={"50%"} margin={0} padding={0}>
                   <input
                     ref={imgGetter}
                     className="hidden"
                     type="file"
                     onChange={(e) => handleUploadClick(e)}
                   />
-                  <Button onClick={handleClickPickImg}>
-                    {edit ? (
-                      <img
-                        src={image}
-                        alt={title}
-                        width={"200px"}
-                        height={"200px"}
-                      />
+                  <Button
+                    onClick={!image ? handleClickPickImg : () => 0}
+                    sx={styledBtn}
+                  >
+                    {image ? (
+                      <Stack>
+                        <img src={image} alt={title} style={styledImg} />
+                        {/* **** u r here 6.07.2023  button to delete image*/}
+                        <Button
+                          sx={{
+                            position: "absolute",
+                            right: "0",
+                            backgroundColor: "#3333",
+                            borderRadius: "50px",
+                            minWidth: "20%",
+                            minHeight: "20%",
+                          }}
+                        >
+                          X
+                        </Button>
+                      </Stack>
                     ) : (
-                      <BsCloudUpload />
+                      <Stack textAlign={"center"}>
+                        <Typography>Product image</Typography>
+                        <BsCloudUpload marginLeft={"10px"} />
+                      </Stack>
                     )}
                   </Button>
                 </Stack>
-                <Stack sx={{ height: "40px" }}>
-                  {" "}
-                  {/* <img src={rows?.image} /> */}{" "}
+                <Stack
+                  sx={{ height: "40px", display: "flex", flexDirection: "row" }}
+                >
                   <Button variant="contained" onClick={handleAddNewItem}>
                     {edit !== null ? "Update" : "Save"}
                   </Button>

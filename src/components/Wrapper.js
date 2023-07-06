@@ -6,11 +6,6 @@ import TablePage from "./DataGrid/TablePage";
 
 export default function Wrapper({ dataProps }) {
   const { handleOpen } = useContext(DataContext);
-  const { fetchData } = useContext(DataContext);
-
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   return (
     <div className="App">

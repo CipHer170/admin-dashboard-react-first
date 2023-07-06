@@ -7,7 +7,15 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 
 const DataContext = createContext();
 
-function Provider({ children, setPrice, setTitle, setDescription, setImage }) {
+function Provider({
+  children,
+  setPrice,
+  setTitle,
+  setDescription,
+  setImage,
+  setAmount,
+  amount,
+}) {
   const [rows, setRows] = useState([]);
   const [open, setOpen] = useState(false);
   const [edit, setEdit] = useState(null);
@@ -79,6 +87,7 @@ function Provider({ children, setPrice, setTitle, setDescription, setImage }) {
       description = "",
       id = "",
       image = { value },
+      amount = "",
     } = oldItem || {};
     setTitle(title);
     setPrice(price);
@@ -86,6 +95,7 @@ function Provider({ children, setPrice, setTitle, setDescription, setImage }) {
     setOpen(true);
     setEdit(id);
     setImage(image);
+    setAmount(amount);
   };
   // *****columns*****
   const columns = [
