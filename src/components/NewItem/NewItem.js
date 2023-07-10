@@ -24,7 +24,7 @@ function NewItem({
   setAmount,
 }) {
   const imgGetter = useRef(null);
-  const { rows, open, setOpen, createData, edit, updateData } =
+  const { rows, open, setOpen, createData, edit, updateData, deleteData } =
     useContext(DataContext);
   const handleClose = () => setOpen(false);
   const [clickImgBtn, setClickImgBtn] = useState(false);
@@ -110,7 +110,10 @@ function NewItem({
     imgGetter.current.click();
   };
   // const showImg =
-
+  const handleDeleteImage = (e, id) => {
+    console.log(e);
+    deleteData(e);
+  };
   // *** styled btn***
   const styledBtn = {
     width: "inherit",
@@ -122,6 +125,7 @@ function NewItem({
     paddingLeft: "10px",
     maxWidth: "100%",
   };
+
   return (
     <Stack>
       <Modal
@@ -134,8 +138,7 @@ function NewItem({
           {/***************** u r here adding exit button */}
           <Button
             onClick={() => {
-              edit ? setOpen(false) : setOpen(!false);
-              return;
+              open ? setOpen(!open) : setOpen(open);
             }}
             style={{ position: "absolute", right: "5%", top: "1%" }}
           >
@@ -229,6 +232,7 @@ function NewItem({
                             minWidth: "20%",
                             minHeight: "20%",
                           }}
+                          onClick={() => setImage("")}
                         >
                           X
                         </Button>

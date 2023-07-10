@@ -28,7 +28,11 @@ function Provider({
   // *****getting data*****
   const fetchData = async () => {
     const response = await axios.get(
-      `https://dashboard-first-default-rtdb.firebaseio.com/dashboard.json`
+      `https://farman-5f6d8-default-rtdb.firebaseio.com/dashboard.json`,
+      {
+        headers: {},
+        params: {},
+      }
     );
     setRows(dataFormatter(response.data));
   };
@@ -36,7 +40,7 @@ function Provider({
   const createData = async (item) => {
     try {
       const response = await axios.post(
-        `https://dashboard-first-default-rtdb.firebaseio.com/dashboard.json`,
+        `https://farman-5f6d8-default-rtdb.firebaseio.com/dashboard.json`,
         // rows
         item
       );
@@ -54,7 +58,7 @@ function Provider({
   const deleteData = async (id) => {
     try {
       await axios.delete(
-        `https://dashboard-first-default-rtdb.firebaseio.com/dashboard/${id}.json`
+        `https://farman-5f6d8-default-rtdb.firebaseio.com/dashboard/${id}.json`
       );
       const changeData = rows.filter((item) => {
         return item.id !== id;
@@ -66,7 +70,7 @@ function Provider({
   const updateData = async (id, newItem) => {
     try {
       await axios.put(
-        `https://dashboard-first-default-rtdb.firebaseio.com/dashboard/${id}.json`,
+        `https://farman-5f6d8-default-rtdb.firebaseio.com/dashboard/${id}.json`,
         newItem
       );
       const newData = { ...newItem, id };
@@ -86,7 +90,7 @@ function Provider({
       price = "",
       description = "",
       id = "",
-      image = { value },
+      image = "",
       amount = "",
     } = oldItem || {};
     setTitle(title);
