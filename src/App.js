@@ -1,7 +1,11 @@
-import { useContext, useEffect, useState } from "react";
-import Provider, { DataContext } from "./context/DataContextPage";
+import { useState } from "react";
+import Provider from "./context/DataContextPage";
 import Wrapper from "./components/Wrapper";
 import "./App.scss";
+import LandingPage from "./components/LandingPage/LandingPage";
+import { Route, Routes } from "react-router";
+import AboutPage from "./components/AboutPage";
+import LoginForm from "./components/Auth/LoginForm";
 
 function App() {
   const [price, setPrice] = useState("");
@@ -25,7 +29,12 @@ function App() {
 
   return (
     <Provider {...dataProps}>
-      <Wrapper dataProps={dataProps} />
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="aboutus" element={<LoginForm />} />
+        <Route path="wrapper" element={<Wrapper dataProps={dataProps} />} />
+      </Routes>
+      {/* <Wrapper dataProps={dataProps} /> */}
     </Provider>
   );
 }

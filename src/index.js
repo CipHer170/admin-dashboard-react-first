@@ -2,11 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import { StyledEngineProvider } from "@mui/material";
+import { BrowserRouter } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <StyledEngineProvider injectFirst>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </StyledEngineProvider>
 );
 
@@ -18,8 +21,8 @@ root.render(
 //   id: 'name',
 //   numeric: false,
 //   disablePadding: true,
-//   label: 'Dessert (100g serving)',
 // },
+//   label: 'Dessert (100g serving)',
 
 // *****row***
 // {

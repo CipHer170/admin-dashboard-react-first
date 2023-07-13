@@ -19,6 +19,8 @@ function Provider({
   const [rows, setRows] = useState([]);
   const [open, setOpen] = useState(false);
   const [edit, setEdit] = useState(null);
+
+  const [userToken, setUserToken] = useState();
   const styleBtn = {
     // color: "red",
     width: "20px",
@@ -26,14 +28,17 @@ function Provider({
     // backgroundColor: "blue",
   };
   // *****getting data*****
+
+  const queryParams = `auth=${userToken}`;
+  const postUrl = `https://farman-5f6d8-default-rtdb.firebaseio.com/dashboard.json?${queryParams}`;
+  // or add {
+  // headers: {
+  // method: "GET",
+  // headers: { "Content-Type": "application/json" }
+  // params: {query:queryParams} =====  `https://farman-5f6d8-default-rtdb.firebaseio.com/dashboard.json?${queryParams}`
+  // },
   const fetchData = async () => {
-    const response = await axios.get(
-      `https://farman-5f6d8-default-rtdb.firebaseio.com/dashboard.json`,
-      {
-        headers: {},
-        params: {},
-      }
-    );
+    const response = await axios.get(postUrl);
     setRows(dataFormatter(response.data));
   };
   // ****creating data*******
@@ -177,6 +182,8 @@ function Provider({
     },
   ];
 
+  // login Form
+
   const handleOpen = () => {
     setTitle("");
     setDescription("");
@@ -199,6 +206,8 @@ function Provider({
     setOpen,
     deleteData,
     updateData,
+    userToken,
+    setUserToken,
   };
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
 }
