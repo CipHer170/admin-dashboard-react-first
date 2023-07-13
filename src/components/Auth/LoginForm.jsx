@@ -1,14 +1,17 @@
 import React, { useContext, useState } from "react";
 import { DataContext } from "../../context/DataContextPage";
-import { useNavigate } from "react-router-dom";
+import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
 
 function LoginForm() {
-  const { userToken, setUserToken } = useContext(DataContext);
+  const { userToken, setUserToken, setIsLogIn } = useContext(DataContext);
+
   const [errorMessage, setErrorMessage] = useState("");
   const [login, setLogin] = useState();
   const [password, setPassword] = useState();
   const navigate = useNavigate();
+  const location = useLocation();
   const [isSubmit, setIsSbmit] = useState(false);
+  const FromPage = location.state?.from?.pathname;
 
   const submit = async (e) => {
     e.preventDefault();
@@ -51,6 +54,7 @@ function LoginForm() {
         setIsSbmit(false);
         return userData.error.message;
       }
+      console.log(userData.registered);
     } catch (err) {}
     setIsSbmit(false);
   };
@@ -62,14 +66,12 @@ function LoginForm() {
         <input
           type="text"
           placeholder="enter your login"
-          value={login}
           onChange={handleChangeLogin}
         />
         <label htmlFor="">Password</label>
         <input
           type="text"
           placeholder="enter your password"
-          value={password}
           onChange={handleChangePassword}
         />
         <button disabled={isSubmit}>Log In</button>

@@ -19,8 +19,9 @@ function Provider({
   const [rows, setRows] = useState([]);
   const [open, setOpen] = useState(false);
   const [edit, setEdit] = useState(null);
-
   const [userToken, setUserToken] = useState();
+  const [isLogIn, setIsLogIn] = useState();
+
   const styleBtn = {
     // color: "red",
     width: "20px",
@@ -208,6 +209,8 @@ function Provider({
     updateData,
     userToken,
     setUserToken,
+    isLogIn,
+    setIsLogIn,
   };
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
 }

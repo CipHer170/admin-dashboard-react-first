@@ -6,7 +6,7 @@ function LandingPage() {
     <div>
       LandingPage
       <header className="list__menu">
-        <NavLink to="/aboutus">About us</NavLink>
+        <NavLink to="/login">Login</NavLink>
         <br />
         <NavLink to="/wrapper">Adminka</NavLink>
       </header>
