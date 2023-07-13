@@ -10,7 +10,6 @@ function App() {
   const [image, setImage] = useState("");
   const [description, setDescription] = useState("");
 
- 
   const dataProps = {
     price,
     description,
