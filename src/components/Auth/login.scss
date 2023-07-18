@@ -1,0 +1,147 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.login {
+  // user-select: none;
+  background-color: aliceblue;
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  padding: 0;
+
+  label,
+  h2,
+  a {
+    font-family: Poppins, sans-serif;
+    font-weight: 500;
+  }
+  a {
+    text-decoration: none;
+    color: #181818;
+  }
+
+  &__main {
+    width: 50%;
+    background-color: rgb(159, 250, 220);
+    img {
+      opacity: 0.2;
+      width: auto;
+    }
+  }
+  // outer div form
+  &__form {
+    background-color: #f8f8f8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    color: #181818;
+    h2 {
+      text-transform: capitalize;
+      font-size: 50px;
+    }
+    h4 {
+      font-size: 20px;
+      font-family: Poppins, sans-serif;
+      font-weight: 400;
+      color: #636364;
+    }
+  }
+  // inner form <form></form>
+  .form {
+    width: 60%;
+  }
+
+  // input container
+  &__input {
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+
+    label {
+      margin-bottom: 5px;
+    }
+    input {
+      border-radius: 50px;
+      border-width: 0.2px;
+      border-color: rgb(177, 175, 175);
+      height: 25px;
+      min-width: 313px;
+      height: 41px;
+      padding-left: 10px;
+    }
+  }
+  // helper container
+  &__checkbox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-bottom: 10px;
+    input {
+      margin-right: 10px;
+    }
+  }
+
+  // btn container
+  &__action {
+    display: flex;
+    justify-content: space-evenly;
+    button {
+      padding: 8px 18px;
+      border: none;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: antiquewhite;
+    }
+  }
+}
+@media only screen and (max-width: 1024px) {
+  .login {
+    background-image: url(../../assets/img/bkg_img.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    h4,
+    h2 {
+      text-align: center;
+    }
+    &__main {
+      display: none;
+    }
+    &__form {
+      opacity: 0.9;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      margin: 0;
+    }
+    .form {
+      width: 90%;
+      margin: 0;
+    }
+    &__checkbox {
+      display: flex;
+      font-size: 14px;
+    }
+    &__action {
+      display: flex;
+      flex-direction: rows;
+      button {
+        padding: 8px 18px;
+        border: none;
+        border-radius: 5px;
+        background-color: #ea454c;
+      }
+      button:hover {
+        background-color: antiquewhite;
+      }
+    }
+  }
+}
