@@ -23,20 +23,17 @@ function Provider({
   const [isLogIn, setIsLogIn] = useState();
 
   const styleBtn = {
-    // color: "red",
     width: "20px",
     height: "20px",
-    // backgroundColor: "blue",
   };
   // *****getting data*****
-
   const queryParams = `auth=${userToken}`;
-  const postUrl = `https://farman-5f6d8-default-rtdb.firebaseio.com/dashboard.json?${queryParams}`;
+  const postUrl = `https://shop-5138f-default-rtdb.firebaseio.com/dashboard.json?${queryParams}`;
   // or add {
   // headers: {
   // method: "GET",
   // headers: { "Content-Type": "application/json" }
-  // params: {query:queryParams} =====  `https://farman-5f6d8-default-rtdb.firebaseio.com/dashboard.json?${queryParams}`
+  // params: {query:queryParams} =====  `https://shop-5138f-default-rtdb.firebaseio.com/dashboard.json?${queryParams}`
   // },
   const fetchData = async () => {
     try {
@@ -50,7 +47,7 @@ function Provider({
   const createData = async (item) => {
     try {
       const response = await axios.post(
-        `https://farman-5f6d8-default-rtdb.firebaseio.com/dashboard.json`,
+        postUrl,
         // rows
         item
       );
@@ -59,16 +56,14 @@ function Provider({
       const updateRows = [...rows, newData];
       setRows(updateRows);
     } catch (error) {
-      alert(
-        "Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug Bug"
-      );
+      alert("Bug Bug Bug Bug");
     }
   };
   // ******delete data**********
   const deleteData = async (id) => {
     try {
       await axios.delete(
-        `https://farman-5f6d8-default-rtdb.firebaseio.com/dashboard/${id}.json`
+        `https://shop-5138f-default-rtdb.firebaseio.com/dashboard/${id}.json?${queryParams}`
       );
       const changeData = rows.filter((item) => {
         return item.id !== id;
@@ -80,7 +75,7 @@ function Provider({
   const updateData = async (id, newItem) => {
     try {
       await axios.put(
-        `https://farman-5f6d8-default-rtdb.firebaseio.com/dashboard/${id}.json`,
+        `https://shop-5138f-default-rtdb.firebaseio.com/dashboard/${id}.json?${queryParams}`,
         newItem
       );
       const newData = { ...newItem, id };

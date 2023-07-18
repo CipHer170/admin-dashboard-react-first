@@ -240,7 +240,7 @@ function NewItem({
                     ) : (
                       <Stack textAlign={"center"}>
                         <Typography>Product image</Typography>
-                        <BsCloudUpload marginLeft={"10px"} />
+                        <BsCloudUpload />
                       </Stack>
                     )}
                   </Button>

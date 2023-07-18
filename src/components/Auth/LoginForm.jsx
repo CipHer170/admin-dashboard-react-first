@@ -3,7 +3,7 @@ import { DataContext } from "../../context/DataContextPage";
 import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
-  const { setUserToken, setDataSaved } = useContext(DataContext);
+  const { setUserToken } = useContext(DataContext);
 
   const [errorMessage, setErrorMessage] = useState("");
   const [login, setLogin] = useState();
@@ -38,7 +38,7 @@ function LoginForm() {
     // eslint-disable-next-line
   }, []);
 
-  const API_KEY = "AIzaSyAGLR8vECaQdXrToVLOW1qR73hXdd61BCQ";
+  const API_KEY = "AIzaSyBQC9yD7ZZN9hkkeebe6EUEVO-GS5A-qxc";
   const URL_AUTH = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`;
 
   const handleSubmitLogin = async (passwordText, emailText = "") => {
@@ -46,10 +46,11 @@ function LoginForm() {
     setIsSbmit(true);
     const data =
       typeof passwordText === "object"
-        ? passwordText
+        ? { ...passwordText, returnSecureToken: true }
         : {
             email: emailText,
             password: passwordText,
+            returnSecureToken: true,
           };
     try {
       const res = await fetch(URL_AUTH, {
@@ -61,8 +62,7 @@ function LoginForm() {
       setUserToken(userData.idToken);
       if (userData.idToken) {
         navigate("/wrapper");
-        const dataSaved = localStorage.setItem("user", JSON.stringify(data));
-        setDataSaved(dataSaved);
+        localStorage.setItem("user", JSON.stringify(data));
       }
 
       if (userData.error) {
