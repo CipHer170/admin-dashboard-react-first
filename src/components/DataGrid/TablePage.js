@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { DataContext } from "../../context/DataContextPage";
+import { Button, Stack } from "@mui/material";
 
 function TablePage() {
   const { rows, columns } = useContext(DataContext);
