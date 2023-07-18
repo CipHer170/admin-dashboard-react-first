@@ -39,8 +39,12 @@ function Provider({
   // params: {query:queryParams} =====  `https://farman-5f6d8-default-rtdb.firebaseio.com/dashboard.json?${queryParams}`
   // },
   const fetchData = async () => {
-    const response = await axios.get(postUrl);
-    setRows(dataFormatter(response.data));
+    try {
+      const response = await axios.get(postUrl);
+      setRows(dataFormatter(response.data));
+    } catch (error) {
+      console.warn(error);
+    }
   };
   // ****creating data*******
   const createData = async (item) => {
