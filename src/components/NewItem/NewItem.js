@@ -123,7 +123,8 @@ function NewItem({
   };
   const styledImg = {
     paddingLeft: "10px",
-    maxWidth: "100%",
+    width: "100%",
+    height: "100%",
   };
 
   return (
@@ -206,21 +207,22 @@ function NewItem({
                 justifyContent={"space-between"}
                 height={"150px"}
                 alignItems={"end"}
-                // sx={{ backgroundColor: "blue" }}
               >
+                {/* image button/image */}
                 <Stack height={"100%"} width={"50%"} margin={0} padding={0}>
                   <input
                     ref={imgGetter}
                     className="hidden"
                     type="file"
                     onChange={(e) => handleUploadClick(e)}
+                    backgroundColor=""
                   />
                   <Button
                     onClick={!image ? handleClickPickImg : () => 0}
                     sx={styledBtn}
                   >
                     {image ? (
-                      <Stack>
+                      <Stack width={"100%"} height={"100%"}>
                         <img src={image} alt={title} style={styledImg} />
                         {/* **** u r here 6.07.2023  button to delete image*/}
                         <Button
@@ -245,6 +247,8 @@ function NewItem({
                     )}
                   </Button>
                 </Stack>
+
+                {/* save/update btn */}
                 <Stack
                   sx={{ height: "40px", display: "flex", flexDirection: "row" }}
                 >
