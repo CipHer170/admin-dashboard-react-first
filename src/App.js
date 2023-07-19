@@ -5,6 +5,7 @@ import "./App.scss";
 import { Route, Routes } from "react-router";
 import LoginForm from "./components/Auth/LoginForm";
 import RequiredAuth from "./components/Auth/RequiredAuth";
+import DashboardMenuPage from "./components/Menu/DashboardMenuPage";
 
 function App() {
   const [price, setPrice] = useState("");
@@ -35,7 +36,8 @@ function App() {
           path="/wrapper"
           element={
             <RequiredAuth>
-              <Wrapper dataProps={dataProps} />
+              <DashboardMenuPage dataProps={dataProps} />
+              {/* <Wrapper  /> */}
             </RequiredAuth>
           }
         />
