@@ -110,8 +110,8 @@ function Provider({
   const columns = [
     {
       field: "№",
-      type: "number",
-      width: 150,
+      numeric: false,
+      width: 40,
       renderCell: ({ id }) => {
         return rows.findIndex((el) => el.id === id) + 1;
       },
@@ -143,7 +143,14 @@ function Provider({
         return value === "" ? (
           <IoIosImages style={styleBtn} />
         ) : (
-          <img src={value} alt="name" />
+          <img
+            style={{
+              "object-fit": "contain",
+              width: "100%",
+            }}
+            src={value}
+            alt="name"
+          />
         );
       },
     },
