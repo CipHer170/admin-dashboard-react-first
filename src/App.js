@@ -4,10 +4,14 @@ import "./App.scss";
 import { Route, Routes } from "react-router";
 import LoginForm from "./components/Auth/LoginForm";
 import RequiredAuth from "./components/Auth/RequiredAuth";
-import DashboardMenuPage from "./components/Menu/DashboardMenuPage";
 import { storage } from "./firebase";
 import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
 import { v4 } from "uuid"; //v4 function added random letters
+import Accounts from "./components/Accounts/Accounts";
+import Catalog from "./components/Catalog/Catalog";
+import TablePage from "./components/DataGrid/TablePage";
+import Wrapper from "./components/Wrapper";
+import DashboardMenuPage from "../components/Menu/DashboardMenuPage";
 
 function App() {
   const [price, setPrice] = useState("");
@@ -38,11 +42,16 @@ function App() {
           path="/wrapper"
           element={
             <RequiredAuth>
+              {/* <Wrapper dataProps={dataProps} /> */}
               <DashboardMenuPage dataProps={dataProps} />
-              {/* <Wrapper  /> */}
             </RequiredAuth>
           }
         />
+      </Routes>
+      <Routes>
+        <Route path="/accounts" element={<Accounts />} />
+        <Route path="/catalog" element={<Catalog />} />
+        <Route path="/products" element={<TablePage />} />
       </Routes>
       {/* <Wrapper dataProps={dataProps} /> */}
     </Provider>
