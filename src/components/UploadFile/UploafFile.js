@@ -9,7 +9,7 @@ function UploadFile() {
   return (
     <div className="App">
       {/* <center> */}
-      <input type="file" onChange={(e) => handleUploadClick(e)} />
+      <input type="file" onChange={(e) => handleUploadClick(e)} multiple />
       {/* </center> */}
     </div>
   );
