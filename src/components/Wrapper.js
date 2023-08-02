@@ -14,7 +14,7 @@ export default function Wrapper({ dataProps }) {
     <div className="App">
       {/* ******ADD MENU ********** */}
       <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <h2>Table</h2>
+        <h2>Products</h2>
 
         <Button variant="contained" onClick={handleOpen}>
           Add

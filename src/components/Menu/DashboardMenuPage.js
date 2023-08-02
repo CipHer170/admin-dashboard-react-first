@@ -126,7 +126,7 @@ export default function MiniDrawer({ dataProps }) {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap component="div">
-              Addin new elements
+              {} Dashboard
             </Typography>
           </Stack>
           <Button onClick={handleLogOut} className="logout">

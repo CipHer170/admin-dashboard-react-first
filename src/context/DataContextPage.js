@@ -110,35 +110,26 @@ function Provider({
   const columns = [
     {
       field: "№",
-      numeric: false,
       width: 40,
       renderCell: ({ id }) => {
         return rows.findIndex((el) => el.id === id) + 1;
       },
     },
     {
-      field: "title",
-      numeric: false,
-      disablePadding: true,
-      width: 90,
+      field: "Title",
+      width: 200,
     },
     {
-      field: "description",
-      numeric: false,
-      disablePadding: true,
+      field: "Description",
+      width: 200,
+    },
+    {
+      field: "Price",
+      width: 100,
+    },
+    {
+      field: "Image",
       width: 150,
-    },
-    {
-      field: "price",
-      numeric: false,
-      disablePadding: true,
-      width: 100,
-    },
-    {
-      field: "image",
-      numeric: false,
-      disablePadding: true,
-      width: 100,
       renderCell: ({ value = "" } = {}) => {
         return value === "" ? (
           <IoIosImages style={styleBtn} />
@@ -156,17 +147,13 @@ function Provider({
     },
 
     {
-      field: "amount",
-      numeric: true,
-      disablePadding: true,
+      field: "Amount",
       type: "number",
       width: 100,
-      // editable: true,
     },
 
     {
-      field: "action_edit",
-      sortable: false,
+      field: "Edit",
       renderCell: ({ row: oldItem }) => {
         return (
           <Button onClick={() => editData(oldItem)}>
@@ -176,8 +163,7 @@ function Provider({
       },
     },
     {
-      field: "action_delete",
-      sortable: false,
+      field: "Delete",
       renderCell: ({ id }) => {
         return (
           <Button onClick={() => deleteData(id)}>

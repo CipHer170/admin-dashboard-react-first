@@ -11,12 +11,16 @@ function TablePage() {
         rows={rows}
         columns={columns}
         pageSize={15}
+        editMode="false"
         initialState={{
           pagination: {
             paginationModel: { page: 5, pageSize: 10 },
           },
         }}
         pageSizeOptions={[10, 15]}
+        sx={{
+          width: "auto",
+        }}
       />
     </div>
   );
