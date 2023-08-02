@@ -11,7 +11,7 @@ import Accounts from "./components/Accounts/Accounts";
 import Catalog from "./components/Catalog/Catalog";
 import TablePage from "./components/DataGrid/TablePage";
 import Wrapper from "./components/Wrapper";
-import DashboardMenuPage from "../components/Menu/DashboardMenuPage";
+import DashboardMenuPage from "./components/Menu/DashboardMenuPage";
 
 function App() {
   const [price, setPrice] = useState("");
@@ -47,13 +47,11 @@ function App() {
             </RequiredAuth>
           }
         />
-      </Routes>
-      <Routes>
         <Route path="/accounts" element={<Accounts />} />
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/products" element={<TablePage />} />
+        {/* <Wrapper dataProps={dataProps} /> */}
       </Routes>
-      {/* <Wrapper dataProps={dataProps} /> */}
     </Provider>
   );
 }

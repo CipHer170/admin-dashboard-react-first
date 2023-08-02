@@ -20,7 +20,7 @@ import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import TableChartIcon from "@mui/icons-material/TableChart";
 import Wrapper from "../Wrapper";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Stack } from "@mui/material";
 import "../../App.scss";
 const drawerWidth = 240;
@@ -107,6 +107,17 @@ export default function MiniDrawer({ dataProps }) {
     localStorage.removeItem("user");
     navigate("/login");
   };
+
+  const titles = [
+    {
+      name: "All Products",
+      icon: <InboxIcon />,
+      path: "/products" && "/",
+    },
+    { name: "Catalog", icon: <MailIcon />, path: "/catalog" },
+    { name: "Accounts", icon: <MailIcon />, path: "/accounts" },
+  ];
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -126,7 +137,7 @@ export default function MiniDrawer({ dataProps }) {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap component="div">
-              {} Dashboard
+              Dashboard
             </Typography>
           </Stack>
           <Button onClick={handleLogOut} className="logout">
@@ -147,35 +158,8 @@ export default function MiniDrawer({ dataProps }) {
         </DrawerHeader>
         <Divider />
         <List>
-          {["TableChartIcon", "InboxIcon", "MailIcon", "Drafts"].map(
-            (text, index) => (
-              <ListItem key={text} disablePadding sx={{ display: "block" }}>
-                <ListItemButton
-                  sx={{
-                    minHeight: 48,
-                    justifyContent: open ? "initial" : "center",
-                    px: 2.5,
-                  }}
-                >
-                  <ListItemIcon
-                    sx={{
-                      minWidth: 0,
-                      mr: open ? 3 : "auto",
-                      justifyContent: "center",
-                    }}
-                  >
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-                </ListItemButton>
-              </ListItem>
-            )
-          )}
-        </List>
-        <Divider />
-        <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: "block" }}>
+          {titles.map((title, index) => (
+            <ListItem key={title.name} disablePadding sx={{ display: "block" }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -190,19 +174,20 @@ export default function MiniDrawer({ dataProps }) {
                     justifyContent: "center",
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {title.icon}
                 </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                <Link to={title.path}>{title.name}</Link>;
+                <ListItemText
+                  primary={title.name}
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
               </ListItemButton>
             </ListItem>
           ))}
         </List>
       </Drawer>
       {/* table */}
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <DrawerHeader />
-        <Wrapper dataProps={dataProps} />
-      </Box>
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}></Box>
     </Box>
   );
 }
