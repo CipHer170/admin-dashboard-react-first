@@ -23,3 +23,9 @@
   width: 100%;
   object-fit: contain;
 }
+.list__menu {
+  display: flex;
+  flex-direction: column !important;
+  justify-content: center;
+  background-color: aqua;
+}

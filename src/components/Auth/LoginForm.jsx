@@ -75,7 +75,7 @@ function LoginForm() {
       const userData = await res.json();
       setUserToken(userData.idToken);
       if (userData.idToken) {
-        navigate("/wrapper");
+        navigate("/dashboard");
         if (userChoice) {
           localStorage.setItem("user", JSON.stringify(data));
         }

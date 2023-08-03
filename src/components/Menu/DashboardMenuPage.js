@@ -20,7 +20,7 @@ import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import TableChartIcon from "@mui/icons-material/TableChart";
 import Wrapper from "../Wrapper";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { Button, Stack } from "@mui/material";
 import "../../App.scss";
 const drawerWidth = 240;
@@ -108,14 +108,26 @@ export default function MiniDrawer({ dataProps }) {
     navigate("/login");
   };
 
+  const [showPage, setShowPage] = React.useState("");
   const titles = [
     {
-      name: "All Products",
+      name: "Products",
+      route: "TablePage" && "",
       icon: <InboxIcon />,
-      path: "/products" && "/",
+      path: "/dashboard/products",
     },
-    { name: "Catalog", icon: <MailIcon />, path: "/catalog" },
-    { name: "Accounts", icon: <MailIcon />, path: "/accounts" },
+    {
+      name: "Catalog",
+      route: "Catalog",
+      icon: <MailIcon />,
+      path: "/dashboard/catalog",
+    },
+    {
+      name: "Accounts",
+      rouet: "Accounts",
+      icon: <MailIcon />,
+      path: "/dashboard/accounts",
+    },
   ];
 
   return (
@@ -161,6 +173,9 @@ export default function MiniDrawer({ dataProps }) {
           {titles.map((title, index) => (
             <ListItem key={title.name} disablePadding sx={{ display: "block" }}>
               <ListItemButton
+                onClick={() => {
+                  setShowPage(title.route);
+                }}
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? "initial" : "center",
@@ -176,18 +191,23 @@ export default function MiniDrawer({ dataProps }) {
                 >
                   {title.icon}
                 </ListItemIcon>
-                <Link to={title.path}>{title.name}</Link>;
-                <ListItemText
-                  primary={title.name}
+
+                <Link
+                  to={title.path}
                   sx={{ opacity: open ? 1 : 0 }}
-                />
+                  primary={title.name}
+                >
+                  {title.name}
+                </Link>
               </ListItemButton>
             </ListItem>
           ))}
         </List>
       </Drawer>
       {/* table */}
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}></Box>
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <Outlet />
+      </Box>
     </Box>
   );
 }

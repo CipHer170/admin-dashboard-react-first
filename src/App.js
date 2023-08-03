@@ -7,11 +7,12 @@ import RequiredAuth from "./components/Auth/RequiredAuth";
 import { storage } from "./firebase";
 import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
 import { v4 } from "uuid"; //v4 function added random letters
-import Accounts from "./components/Accounts/Accounts";
-import Catalog from "./components/Catalog/Catalog";
+import DashboardMenuPage from "./components/Menu/DashboardMenuPage";
+import MiniDrawer from "./components/Menu/DashboardMenuPage";
 import TablePage from "./components/DataGrid/TablePage";
 import Wrapper from "./components/Wrapper";
-import DashboardMenuPage from "./components/Menu/DashboardMenuPage";
+import Catalogs from "./components/Catalog/Catalog";
+import Accounts from "./components/Accounts/Accounts";
 
 function App() {
   const [price, setPrice] = useState("");
@@ -36,10 +37,13 @@ function App() {
   return (
     <Provider {...dataProps}>
       <Routes>
-        <Route path="/" element={<LoginForm />} />
-        <Route path="/login" element={<LoginForm />} />
+        <Route element={<MiniDrawer />} path="/dashboard">
+          <Route path="products" element={<Wrapper />} />
+          <Route path="catalog" element={<Catalogs />} />
+          <Route path="accounts" element={<Accounts />} />
+        </Route>
         <Route
-          path="/wrapper"
+          path="/"
           element={
             <RequiredAuth>
               {/* <Wrapper dataProps={dataProps} /> */}
@@ -47,10 +51,8 @@ function App() {
             </RequiredAuth>
           }
         />
-        <Route path="/accounts" element={<Accounts />} />
-        <Route path="/catalog" element={<Catalog />} />
-        <Route path="/products" element={<TablePage />} />
-        {/* <Wrapper dataProps={dataProps} /> */}
+        <Route index element={<LoginForm />} />
+        <Route path="/login" element={<LoginForm />} />
       </Routes>
     </Provider>
   );

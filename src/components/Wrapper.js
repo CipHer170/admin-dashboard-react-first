@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { DataContext } from "../context/DataContextPage";
 import { Button, Stack } from "@mui/material";
 import NewItem from "./NewItem/NewItem";
@@ -21,8 +21,8 @@ export default function Wrapper({ dataProps }) {
         </Button>
       </Stack>
       {/* <UploadFile /> */}
-      <TablePage />
       {handleOpen && <NewItem {...dataProps} />}
+      <TablePage />
     </div>
   );
 }
