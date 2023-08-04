@@ -5,24 +5,18 @@ import { DataContext } from "../../context/DataContextPage";
 function TablePage() {
   const { rows, columns } = useContext(DataContext);
   return (
-    <div sx={{ height: 300, width: "100%" }}>
-      {" "}
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={15}
-        editMode="false"
-        initialState={{
-          pagination: {
-            paginationModel: { page: 5, pageSize: 10 },
-          },
-        }}
-        pageSizeOptions={[10, 15]}
-        sx={{
-          width: "auto",
-        }}
-      />
-    </div>
+    <DataGrid
+      rows={rows}
+      columns={columns}
+      pageSize={15}
+      editMode="false"
+      initialState={{
+        pagination: {
+          paginationModel: { page: 5, pageSize: 10 },
+        },
+      }}
+      pageSizeOptions={[10, 15]}
+    />
   );
 }
 

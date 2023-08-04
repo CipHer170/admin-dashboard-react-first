@@ -172,40 +172,37 @@ export default function MiniDrawer({ dataProps }) {
         <List>
           {titles.map((title, index) => (
             <ListItem key={title.name} disablePadding sx={{ display: "block" }}>
-              <ListItemButton
-                onClick={() => {
-                  setShowPage(title.route);
-                }}
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
+              <Link to={title.path}>
+                <ListItemButton
+                  onClick={() => {
+                    setShowPage(title.route);
+                  }}
                   sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
+                    minHeight: 48,
+                    justifyContent: open ? "initial" : "center",
+                    px: 2.5,
                   }}
                 >
-                  {title.icon}
-                </ListItemIcon>
-
-                <Link
-                  to={title.path}
-                  sx={{ opacity: open ? 1 : 0 }}
-                  primary={title.name}
-                >
-                  {title.name}
-                </Link>
-              </ListItemButton>
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : "auto",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {title.icon}
+                  </ListItemIcon>
+                  <ListItemText sx={{ opacity: open ? 1 : 0 }}>
+                    {title.name}
+                  </ListItemText>
+                </ListItemButton>
+              </Link>
             </ListItem>
           ))}
         </List>
       </Drawer>
       {/* table */}
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 10 }}>
         <Outlet />
       </Box>
     </Box>
