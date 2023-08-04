@@ -124,19 +124,19 @@ function Provider({
       },
     },
     {
-      field: "Title",
+      field: "title",
       width: 200,
     },
     {
-      field: "Description",
+      field: "description",
       width: 200,
     },
     {
-      field: "Price",
+      field: "price",
       width: 100,
     },
     {
-      field: "Image",
+      field: "image",
       width: 150,
       renderCell: ({ value = "" } = {}) => {
         return value === "" ? (
@@ -155,7 +155,7 @@ function Provider({
     },
 
     {
-      field: "Amount",
+      field: "amount",
       type: "number",
       width: 100,
     },

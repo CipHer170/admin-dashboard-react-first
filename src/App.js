@@ -37,20 +37,19 @@ function App() {
   return (
     <Provider {...dataProps}>
       <Routes>
-        <Route element={<MiniDrawer />} path="/dashboard">
+        <Route
+          element={
+            <RequiredAuth>
+              <MiniDrawer />
+            </RequiredAuth>
+          }
+          path="/"
+        >
           <Route path="products" element={<Wrapper dataProps={dataProps} />} />
           <Route path="catalog" element={<Catalogs />} />
           <Route path="accounts" element={<Accounts />} />
         </Route>
-        <Route
-          path="/"
-          element={
-            <RequiredAuth>
-              {/* <Wrapper dataProps={dataProps} /> */}
-              <DashboardMenuPage dataProps={dataProps} />
-            </RequiredAuth>
-          }
-        />
+
         <Route index element={<LoginForm />} />
         <Route path="/login" element={<LoginForm />} />
       </Routes>

@@ -45,10 +45,9 @@ function LoginForm() {
       handleSubmitLogin(localStorageData);
     }
   };
+
   useEffect(() => {
-    if (userChoice === false) {
-      getFromLocalStorage();
-    }
+    getFromLocalStorage();
     // eslint-disable-next-line
   }, []);
 
@@ -75,7 +74,7 @@ function LoginForm() {
       const userData = await res.json();
       setUserToken(userData.idToken);
       if (userData.idToken) {
-        navigate("/dashboard");
+        navigate("/products");
         if (userChoice) {
           localStorage.setItem("user", JSON.stringify(data));
         }
@@ -89,6 +88,7 @@ function LoginForm() {
     } catch (err) {}
     setIsSbmit(false);
   };
+
   return (
     <div className="login">
       {/* {errorMessage} */}

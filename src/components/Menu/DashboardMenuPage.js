@@ -23,6 +23,7 @@ import Wrapper from "../Wrapper";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { Button, Stack } from "@mui/material";
 import "../../App.scss";
+import { DataContext } from "../../context/DataContextPage";
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -93,6 +94,7 @@ const Drawer = styled(MuiDrawer, {
 export default function MiniDrawer({ dataProps }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const { setUserToken } = React.useContext(DataContext);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -105,6 +107,7 @@ export default function MiniDrawer({ dataProps }) {
 
   const handleLogOut = () => {
     localStorage.removeItem("user");
+    setUserToken(null);
     navigate("/login");
   };
 
@@ -114,19 +117,19 @@ export default function MiniDrawer({ dataProps }) {
       name: "Products",
       route: "TablePage" && "",
       icon: <InboxIcon />,
-      path: "/dashboard/products",
+      path: "/products",
     },
     {
       name: "Catalog",
       route: "Catalog",
       icon: <MailIcon />,
-      path: "/dashboard/catalog",
+      path: "/catalog",
     },
     {
       name: "Accounts",
       rouet: "Accounts",
       icon: <MailIcon />,
-      path: "/dashboard/accounts",
+      path: "/accounts",
     },
   ];
 
