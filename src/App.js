@@ -38,7 +38,7 @@ function App() {
     <Provider {...dataProps}>
       <Routes>
         <Route element={<MiniDrawer />} path="/dashboard">
-          <Route path="products" element={<Wrapper />} />
+          <Route path="products" element={<Wrapper dataProps={dataProps} />} />
           <Route path="catalog" element={<Catalogs />} />
           <Route path="accounts" element={<Accounts />} />
         </Route>

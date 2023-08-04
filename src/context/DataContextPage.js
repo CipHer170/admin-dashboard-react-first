@@ -26,6 +26,7 @@ function Provider({
     width: "20px",
     height: "20px",
   };
+
   // *****getting data*****
   const queryParams = `auth=${userToken}`;
   const postUrl = `https://shop-5138f-default-rtdb.firebaseio.com/dashboard.json?${queryParams}`;
@@ -58,6 +59,13 @@ function Provider({
     } catch (error) {
       alert("Bug Bug Bug Bug");
     }
+  };
+
+  const handleDeleteAll = async () => {
+    await axios.delete(
+      `https://shop-5138f-default-rtdb.firebaseio.com/dashboard.json`
+    );
+    setRows(null);
   };
   // ******delete data**********
   const deleteData = async (id) => {
@@ -203,6 +211,7 @@ function Provider({
     setUserToken,
     isLogIn,
     setIsLogIn,
+    handleDeleteAll,
   };
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
 }

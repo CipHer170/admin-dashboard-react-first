@@ -5,7 +5,7 @@ import NewItem from "./NewItem/NewItem";
 import TablePage from "./DataGrid/TablePage";
 
 export default function Wrapper({ dataProps }) {
-  const { handleOpen, fetchData } = useContext(DataContext);
+  const { handleOpen, fetchData, handleDeleteAll } = useContext(DataContext);
   useEffect(() => {
     fetchData();
   }, []);
@@ -15,6 +15,7 @@ export default function Wrapper({ dataProps }) {
       {/* ******ADD MENU ********** */}
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         <h2>Products</h2>
+        <Button onClick={handleDeleteAll}>Delete</Button>
 
         <Button variant="contained" onClick={handleOpen}>
           Add
@@ -22,6 +23,7 @@ export default function Wrapper({ dataProps }) {
       </Stack>
       {/* <UploadFile /> */}
       {handleOpen && <NewItem {...dataProps} />}
+
       <TablePage />
     </div>
   );
