@@ -21,6 +21,7 @@ function Provider({
   const [edit, setEdit] = useState(null);
   const [userToken, setUserToken] = useState();
   const [isLogIn, setIsLogIn] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   const styleBtn = {
     width: "20px",
@@ -36,13 +37,16 @@ function Provider({
   // headers: { "Content-Type": "application/json" }
   // params: {query:queryParams} =====  `https://shop-5138f-default-rtdb.firebaseio.com/dashboard.json?${queryParams}`
   // },
+
   const fetchData = async () => {
+    setIsLoading(false);
     try {
       const response = await axios.get(postUrl);
       setRows(dataFormatter(response.data));
     } catch (error) {
       console.warn(error);
     }
+    setIsLoading(true);
   };
   // ****creating data*******
   const createData = async (item) => {
@@ -144,7 +148,7 @@ function Provider({
         ) : (
           <img
             style={{
-              "object-fit": "contain",
+              objectFit: "contain",
               width: "100%",
             }}
             src={value}
@@ -212,6 +216,7 @@ function Provider({
     isLogIn,
     setIsLogIn,
     handleDeleteAll,
+    isLoading,
   };
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
 }

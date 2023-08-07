@@ -4,7 +4,7 @@ import { DataContext } from "../../context/DataContextPage";
 
 function TablePage() {
   const { rows, columns } = useContext(DataContext);
-
+  
   return (
     <>
       <DataGrid

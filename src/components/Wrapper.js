@@ -5,10 +5,14 @@ import NewItem from "./NewItem/NewItem";
 import TablePage from "./DataGrid/TablePage";
 
 export default function Wrapper({ dataProps }) {
-  const { handleOpen, fetchData, handleDeleteAll } = useContext(DataContext);
+  const { handleOpen, fetchData, handleDeleteAll, isLoading } = useContext(DataContext);
   useEffect(() => {
     fetchData();
   }, []);
+
+  if (!isLoading) {
+    return null;
+  }
 
   return (
     <div className="App">
