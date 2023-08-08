@@ -94,6 +94,7 @@ export default function MiniDrawer({ dataProps }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const { setUserToken } = React.useContext(DataContext);
+  const [showPage, setShowPage] = React.useState();
 
   const handleDrawerOpen = () => {
     setOpen(true);

@@ -39,7 +39,7 @@ a {
     align-items: center;
   }
 }
-.MuiDataGrid-columnHeaderTitle {
+.MuiDataGrid-columnHeaderTitle::first-letter {
   text-transform: uppercase;
 }
 // .App {
