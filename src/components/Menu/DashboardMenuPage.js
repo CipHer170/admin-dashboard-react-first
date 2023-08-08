@@ -18,11 +18,10 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
-import TableChartIcon from "@mui/icons-material/TableChart";
-import Wrapper from "../Wrapper";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import { Button, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import "../../App.scss";
+import LogoutIcon from "@mui/icons-material/Logout";
 import { DataContext } from "../../context/DataContextPage";
 const drawerWidth = 240;
 
@@ -111,7 +110,6 @@ export default function MiniDrawer({ dataProps }) {
     navigate("/login");
   };
 
-  const [showPage, setShowPage] = React.useState("");
   const titles = [
     {
       name: "Products",
@@ -155,13 +153,14 @@ export default function MiniDrawer({ dataProps }) {
               Dashboard
             </Typography>
           </Stack>
-          <Button onClick={handleLogOut} className="logout">
-            LogOut
-          </Button>
         </Toolbar>
       </AppBar>
 
-      <Drawer variant="permanent" open={open}>
+      <Drawer
+        variant="permanent"
+        open={open}
+        sx={{ justifyContent: "space-between" }}
+      >
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "rtl" ? (
@@ -203,9 +202,29 @@ export default function MiniDrawer({ dataProps }) {
             </ListItem>
           ))}
         </List>
+        <Stack sx={{ alignSelf: "flex-start" }}>
+          <ListItemButton
+            onClick={handleLogOut}
+            sx={{
+              justifyContent: "center",
+            }}
+          >
+            <ListItemIcon
+              sx={{
+                mr: open ? 3 : "auto",
+              }}
+            >
+              <LogoutIcon />
+              <ListItemText sx={{ opacity: open ? 1 : 0 }}>LogOut</ListItemText>
+            </ListItemIcon>
+          </ListItemButton>
+        </Stack>
       </Drawer>
       {/* table */}
-      <Box component="main" sx={{ flexGrow: 1, p: 10 }}>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, paddingLeft: 2, paddingTop: 10 }}
+      >
         <Outlet />
       </Box>
     </Box>

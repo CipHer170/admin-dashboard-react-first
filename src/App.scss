@@ -20,7 +20,7 @@ a {
   }
 }
 .logout {
-  color: white;
+  color: black;
   justify-items: end;
 }
 .addImg img {
@@ -28,9 +28,44 @@ a {
   width: 100%;
   object-fit: contain;
 }
-.list__menu {
-  display: flex;
-  flex-direction: column !important;
-  justify-content: center;
-  background-color: aqua;
+
+.App {
+  width: 100%;
+  &__header {
+    width: inherit;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
+.MuiDataGrid-columnHeaderTitle {
+  text-transform: uppercase;
+}
+// .App {
+//   height: 100vh;
+//   &__header {
+//     display: flex;
+//     flex-direction: row;
+//     justify-content: space-between;
+//     align-items: center;
+//   }
+//   @media (min-width: 768px) {
+//     &__header {
+//       width: 100%;
+//     }
+//     min-width: 768px;
+//     display: flex;
+//     flex-direction: column;
+//   }
+//   @media (min-width: 600px) {
+//     &__header {
+//       width: 65%;
+//     }
+//   }
+//   @media (max-width: 599px) {
+//     &__header {
+//       width: 30%;
+//     }
+//   }
+// }

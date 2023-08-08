@@ -111,7 +111,6 @@ function NewItem({
   };
   // const showImg =
   const handleDeleteImage = (e, id) => {
-    console.log(e);
     deleteData(e);
   };
   // *** styled btn***
@@ -215,7 +214,6 @@ function NewItem({
                     className="hidden"
                     type="file"
                     onChange={(e) => handleUploadClick(e)}
-                    backgroundColor=""
                   />
                   <Button
                     onClick={!image ? handleClickPickImg : () => 0}
@@ -229,7 +227,7 @@ function NewItem({
                           sx={{
                             position: "absolute",
                             right: "0",
-                            backgroundColor: "#3333",
+                            // backgroundColor: "#3333",
                             borderRadius: "50px",
                             minWidth: "20%",
                             minHeight: "20%",
@@ -266,7 +264,6 @@ function NewItem({
 }
 
 export default NewItem;
-
 // addidng multiple images
 //   const [imageUpload, setImageUpload] = useState(null);
 //   const [imageList, setImageList] = useState([]);
