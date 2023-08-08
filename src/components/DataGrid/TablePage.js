@@ -15,23 +15,15 @@ function TablePage() {
       sx={{
         width: widthForUserTable,
         alignContent: "center",
-        // "::-webkit-slider-thumb": "5px",
       }}
     >
       <DataGrid
         rows={rows}
         columns={columns}
-        pageSize={15}
-        initialState={{
-          pagination: {
-            paginationModel: { pageSize: 10 },
-          },
-        }}
-        pageSizeOptions={[10, 15]}
         disableColumnFilter={true}
         disableColumnMenu
         disableColumnSelector
-        disa
+        disableRowSelectionOnClick
       />
     </Box>
   );
