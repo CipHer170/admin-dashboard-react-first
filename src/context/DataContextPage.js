@@ -4,7 +4,7 @@ import { Button } from "@mui/material";
 import { IoIosImages } from "react-icons/io";
 import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
-
+import ReviewImage from "../components/UploadFile/ReviewImage";
 const DataContext = createContext();
 
 function Provider({
@@ -14,13 +14,14 @@ function Provider({
   setDescription,
   setImage,
   setAmount,
-  amount,
+  image,
 }) {
   const [rows, setRows] = useState([]);
   const [open, setOpen] = useState(false);
   const [edit, setEdit] = useState(null);
   const [userToken, setUserToken] = useState();
   const [isLogIn, setIsLogIn] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   const styleBtn = {
     width: "20px",
@@ -36,13 +37,18 @@ function Provider({
   // headers: { "Content-Type": "application/json" }
   // params: {query:queryParams} =====  `https://shop-5138f-default-rtdb.firebaseio.com/dashboard.json?${queryParams}`
   // },
+
+  const ImageArray = dataFormatter(image);
+
   const fetchData = async () => {
+    setIsLoading(false);
     try {
       const response = await axios.get(postUrl);
       setRows(dataFormatter(response.data));
     } catch (error) {
       console.warn(error);
     }
+    setIsLoading(true);
   };
   // ****creating data*******
   const createData = async (item) => {
@@ -61,12 +67,6 @@ function Provider({
     }
   };
 
-  const handleDeleteAll = async () => {
-    await axios.delete(
-      `https://shop-5138f-default-rtdb.firebaseio.com/dashboard.json`
-    );
-    setRows(null);
-  };
   // ******delete data**********
   const deleteData = async (id) => {
     try {
@@ -114,6 +114,13 @@ function Provider({
     setImage(image);
     setAmount(amount);
   };
+
+  const [showModal, setShowModal] = useState(false);
+
+  const reviewImage = () => {
+    setShowModal(true);
+  };
+
   // *****columns*****
   const columns = [
     {
@@ -142,25 +149,18 @@ function Provider({
         return value === "" ? (
           <IoIosImages style={styleBtn} />
         ) : (
-          <img
-            style={{
-              "object-fit": "contain",
-              width: "100%",
-            }}
-            src={value}
-            alt="name"
-          />
+          <ReviewImage setAmount={setAmount} image={value} />
         );
       },
     },
-
     {
+      sortable: false,
       field: "amount",
       type: "number",
       width: 100,
     },
-
     {
+      sortable: false,
       field: "Edit",
       renderCell: ({ row: oldItem }) => {
         return (
@@ -172,6 +172,7 @@ function Provider({
     },
     {
       field: "Delete",
+      sortable: false,
       renderCell: ({ id }) => {
         return (
           <Button onClick={() => deleteData(id)}>
@@ -184,12 +185,12 @@ function Provider({
   ];
 
   // login Form
-
   const handleOpen = () => {
     setTitle("");
     setDescription("");
     setPrice("");
     setImage("");
+    setAmount("");
     setEdit(null);
     setOpen(true);
   };
@@ -211,7 +212,8 @@ function Provider({
     setUserToken,
     isLogIn,
     setIsLogIn,
-    handleDeleteAll,
+    isLoading,
+    ImageArray,
   };
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
 }

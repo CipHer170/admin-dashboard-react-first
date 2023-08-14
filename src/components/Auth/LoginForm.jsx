@@ -22,6 +22,7 @@ function LoginForm() {
     const errorMessage = await handleSubmitLogin(password, login);
     if (errorMessage) {
       setErrorMessage(errorMessage);
+      alert("password or login incorrect");
     }
   };
 
