@@ -99,11 +99,10 @@ function NewItem({
           createData(newProduct);
         }
       }
+      setOpen(false);
     } else {
       alert("check all fileds");
     }
-
-    setOpen(false);
   };
 
   const handleClickPickImg = () => {

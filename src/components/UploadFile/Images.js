@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import ImageViewer from "react-simple-image-viewer";
-
+import { createPortal } from "react-dom";
 function Images({ img, id }) {
   const [currentImage, setCurrentImage] = useState(0);
   const [isViewerOpen, setIsViewerOpen] = useState(false);
@@ -16,26 +16,26 @@ function Images({ img, id }) {
   };
 
   return (
-    <div>
+    <>
       <img
         src={img}
         alt="image_product"
         onClick={() => openImageViewer(id)}
-        width="300"
+        width={"100px"}
       />
-
-      {isViewerOpen && (
-        <div>
+      {isViewerOpen &&
+        createPortal(
           <ImageViewer
+            className="ImageViewer"
             src={[img]}
             currentIndex={currentImage}
             disableScroll={false}
             closeOnClickOutside={true}
             onClose={closeImageViewer}
-          />
-        </div>
-      )}
-    </div>
+          />,
+          document.body
+        )}
+    </>
   );
 }
 
