@@ -149,7 +149,7 @@ function Provider({
         return value === "" ? (
           <IoIosImages style={styleBtn} />
         ) : (
-          <ReviewImage setAmount={setAmount} image={value} />
+          <ReviewImage image={value} />
         );
       },
     },
