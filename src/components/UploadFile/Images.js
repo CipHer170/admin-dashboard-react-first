@@ -1,6 +1,8 @@
 import React, { useCallback, useState } from "react";
 import ImageViewer from "react-simple-image-viewer";
 import { createPortal } from "react-dom";
+import "../../App.scss";
+
 function Images({ img, id }) {
   const [currentImage, setCurrentImage] = useState(0);
   const [isViewerOpen, setIsViewerOpen] = useState(false);

@@ -27,7 +27,6 @@ function NewItem({
   const { rows, open, setOpen, createData, edit, updateData, deleteData } =
     useContext(DataContext);
   const handleClose = () => setOpen(false);
-  const [clickImgBtn, setClickImgBtn] = useState(false);
   const [num, setNum] = useState(true);
 
   const style = {
@@ -155,7 +154,11 @@ function NewItem({
                 <TextField
                   type="text"
                   required
-                  value={title}
+                  value={
+                    title.length <= 100
+                      ? title
+                      : alert("no more than 100 symbols")
+                  }
                   onChange={handleTitle}
                 />
               </Stack>
@@ -179,7 +182,11 @@ function NewItem({
                   </Typography>
                   <TextField
                     type="text"
-                    value={price}
+                    value={
+                      price <= 1000000000000
+                        ? price
+                        : alert("no more than 1mlrd")
+                    }
                     onChange={handleChangePrice}
                     required
                   />
@@ -193,7 +200,11 @@ function NewItem({
                     // multiline={true}
                     // minRows={5}
                     type="text"
-                    value={amount}
+                    value={
+                      amount.length <= 1000000
+                        ? amount
+                        : alert("no more than 1mln")
+                    }
                     onChange={handleAmount}
                   />
                 </Stack>

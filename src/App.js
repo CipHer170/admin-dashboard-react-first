@@ -13,6 +13,7 @@ import TablePage from "./components/DataGrid/TablePage";
 import Wrapper from "./components/Wrapper";
 import Catalogs from "./components/Catalog/Catalog";
 import Accounts from "./components/Accounts/Accounts";
+import CompanyCredits from "./components/CompanyCredits/CompanyCredits";
 
 function App() {
   const [price, setPrice] = useState("");
@@ -47,7 +48,7 @@ function App() {
         >
           <Route path="products" element={<Wrapper dataProps={dataProps} />} />
           <Route path="catalog" element={<Catalogs />} />
-          <Route path="accounts" element={<Accounts />} />
+          <Route path="credits" element={<CompanyCredits />} />
         </Route>
 
         <Route index element={<LoginForm />} />

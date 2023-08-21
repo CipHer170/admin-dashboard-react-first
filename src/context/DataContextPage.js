@@ -115,12 +115,6 @@ function Provider({
     setAmount(amount);
   };
 
-  const [showModal, setShowModal] = useState(false);
-
-  const reviewImage = () => {
-    setShowModal(true);
-  };
-
   // *****columns*****
   const columns = [
     {

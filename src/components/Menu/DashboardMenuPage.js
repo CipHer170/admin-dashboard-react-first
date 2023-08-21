@@ -125,10 +125,10 @@ export default function MiniDrawer({ dataProps }) {
       path: "/catalog",
     },
     {
-      name: "Accounts",
-      rouet: "Accounts",
+      name: "Company credits",
+      route: "Credits",
       icon: <MailIcon />,
-      path: "/accounts",
+      path: "/credits",
     },
   ];
 
