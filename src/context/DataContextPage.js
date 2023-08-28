@@ -31,12 +31,6 @@ function Provider({
   // *****getting data*****
   const queryParams = `auth=${userToken}`;
   const postUrl = `https://shop-5138f-default-rtdb.firebaseio.com/dashboard.json?${queryParams}`;
-  // or add {
-  // headers: {
-  // method: "GET",
-  // headers: { "Content-Type": "application/json" }
-  // params: {query:queryParams} =====  `https://shop-5138f-default-rtdb.firebaseio.com/dashboard.json?${queryParams}`
-  // },
 
   const ImageArray = dataFormatter(image);
 
@@ -79,6 +73,7 @@ function Provider({
       setRows(changeData);
     } catch (error) {}
   };
+
   // ***** update button****
   const updateData = async (id, newItem) => {
     try {
@@ -96,6 +91,7 @@ function Provider({
       setRows(updateData);
     } catch (error) {}
   };
+
   // ***** edit button *****
   const editData = (oldItem = {}) => {
     const {

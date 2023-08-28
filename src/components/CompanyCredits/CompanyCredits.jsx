@@ -1,4 +1,3 @@
-import React, { useRef, useState } from "react";
 import {
   Box,
   Button,
@@ -7,41 +6,17 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { BsCloudUpload } from "react-icons/bs";
+import React, { useContext, useEffect, useState } from "react";
+import { DataContext } from "../../context/DataContextPage";
+import { AiOutlineClose } from "react-icons/ai";
+import { CompanyContext } from "../../context/CompanyContextPage";
 
 function CompanyCredits() {
-  const [companyName, setCompanyName] = useState("");
-  const [companyLogo, setCompanyLogo] = useState("");
-  const [companyAddress, setCompanyAddress] = useState("");
-  const [companyInfo, setCompanyInfo] = useState("");
-  const [addCompanyCredits, setCompanyCredits] = useState(false);
-  const companyData = {
-    companyName,
-    setCompanyName,
-    companyLogo,
-    setCompanyLogo,
-    companyAddress,
-    setCompanyAddress,
-    addCompanyCredits,
-    setCompanyCredits,
-  };
-  const imgGetter = useRef(null);
+  const { open, setOpen } = useContext(DataContext);
+  const { companyName, createCompany } = useContext(CompanyContext);
+  const handleClose = () => setOpen(false);
 
-  const handleNewCompanyCredits = () => {
-    setCompanyCredits(!addCompanyCredits);
-  };
-
-  const styledBtn = {
-    width: "inherit",
-    height: "inherit",
-    padding: "0",
-    position: "relative",
-  };
-  const styledImg = {
-    paddingLeft: "10px",
-    width: "100%",
-    height: "100%",
-  };
+  // style
   const style = {
     position: "fixed",
     top: "50%",
@@ -55,161 +30,43 @@ function CompanyCredits() {
     boxShadow: 24,
     p: 4,
   };
+
   const handleCompanyName = (e) => {
-    setCompanyName(e.target.value);
+    createCompany(e.target.value);
   };
-  const handleCompanyInfo = (e) => {
-    setCompanyInfo(e.target.value);
-  };
-  const handleCompanyAddress = (e) => {
-    setCompanyAddress(e.target.value);
-  };
-  //   const handleAddNewCompany = (e) => {
-  //     e.preventDefault();
-  //   };
+  // functions
 
-  const handleClickPickImg = () => {
-    imgGetter.current.click();
-  };
-  const handleUploadClick = (e) => {
-    if (e.target.files.length !== 0) {
-      const reader = new FileReader();
-      reader.readAsDataURL(e.target.files[0]);
-      reader.onload = function () {
-        setCompanyLogo(reader.result);
-      };
-      e.target = null;
-    }
-  };
   return (
-    <div>
-      <Button onClick={handleNewCompanyCredits}>Add Company</Button>
-      {addCompanyCredits ? (
-        <div className="addCompanyCredits">
-          <Stack>
-            <Modal
-              open={addCompanyCredits}
-              onClose={handleNewCompanyCredits}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
+    <Stack>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style} className="modalPage">
+          <Stack gap={1} className="edit-container">
+            {/* company name */}
+            <Typography>
+              <label> Company name</label>
+            </Typography>
+            <TextField
+              type="text"
+              required
+              value={companyName}
+              onChange={handleCompanyName}
+            />
+            {/* save btn */}
+            <Button
+              variant="contained"
+              // onClick={handleAddNewCompany}
             >
-              <Box sx={style} className="modalPage">
-                <Stack>
-                  <Stack>
-                    {/* company name */}
-                    <Typography>
-                      <label htmlFor="">Company Name</label>
-                    </Typography>
-                    <TextField
-                      type="text"
-                      required
-                      value={companyName}
-                      onChange={handleCompanyName}
-                    />
-
-                    {/* company stack */}
-                    <Typography>
-                      <label htmlFor="">Company Stack</label>
-                    </Typography>
-                    <TextField
-                      type="text"
-                      required
-                      value={companyInfo}
-                      onChange={handleCompanyInfo}
-                    />
-
-                    {/* company address */}
-                    <Typography>
-                      <label htmlFor="">Company Address</label>
-                    </Typography>
-                    <TextField
-                      type="text"
-                      required
-                      value={companyInfo}
-                      onChange={handleCompanyAddress}
-                    />
-
-                    {/* company logo */}
-                    <Stack
-                      flexDirection={"row"}
-                      justifyContent={"space-between"}
-                      height={"150px"}
-                      alignItems={"end"}
-                    >
-                      {/* image button/image */}
-                      <Stack
-                        height={"100%"}
-                        width={"50%"}
-                        margin={0}
-                        padding={0}
-                      >
-                        <input
-                          ref={imgGetter}
-                          className="hidden"
-                          type="file"
-                          onChange={(e) => handleUploadClick(e)}
-                        />
-                        <Button
-                          onClick={!companyLogo ? handleClickPickImg : () => 0}
-                          sx={styledBtn}
-                        >
-                          {companyLogo ? (
-                            <Stack width={"100%"} height={"100%"}>
-                              <img
-                                src={companyLogo}
-                                alt={companyName}
-                                style={styledImg}
-                              />
-                              {/* **** u r here 6.07.2023  button to delete image*/}
-                              <Button
-                                sx={{
-                                  position: "absolute",
-                                  right: "0",
-                                  // backgroundColor: "#3333",
-                                  borderRadius: "50px",
-                                  minWidth: "20%",
-                                  minHeight: "20%",
-                                }}
-                                onClick={() => setCompanyLogo("")}
-                              >
-                                X
-                              </Button>
-                            </Stack>
-                          ) : (
-                            <Stack textAlign={"center"}>
-                              <Typography>Product image</Typography>
-                              <BsCloudUpload />
-                            </Stack>
-                          )}
-                        </Button>
-                      </Stack>
-
-                      {/* save/update btn */}
-                      <Stack
-                        sx={{
-                          height: "40px",
-                          display: "flex",
-                          flexDirection: "row",
-                        }}
-                      >
-                        <Button
-                          variant="contained"
-                          onClick={handleNewCompanyCredits}
-                        >
-                          save
-                        </Button>
-                      </Stack>
-                    </Stack>
-                  </Stack>
-                </Stack>
-              </Box>
-            </Modal>
+              save
+            </Button>
           </Stack>
-        </div>
-      ) : (
-        <div>Bye</div>
-      )}
-    </div>
+        </Box>
+      </Modal>
+    </Stack>
   );
 }
 
