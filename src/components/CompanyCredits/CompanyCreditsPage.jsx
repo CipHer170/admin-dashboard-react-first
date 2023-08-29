@@ -1,30 +1,49 @@
-import React, { useContext, useState } from "react";
-import CompanyCredits from "./CompanyCredits";
+import React from "react";
+import { useState } from "react";
 import "./CompanyCredits.scss";
-import { Button } from "@mui/material";
-import { DataContext } from "../../context/DataContextPage";
 import logo from "../../assets/img/bkg_img.svg";
-function CompanyCreditsPage() {
-  const { open, setOpen } = useContext(DataContext);
-  const handleClose = () => {
-    setOpen(!open);
-  };
-  return (
-    <div className="company">
-      <Button onClick={handleClose}>Add Company</Button>
-      {/* <div className="company__credits">
-        <div className="company__credits_title">
-          <h2>Company name:</h2>
-          <h2>Company Adress:</h2>
-        </div>
-        <div className="company__credits_custom">
-          <pre>Fully</pre>
-          <pre>Earth</pre>
-        </div>
-        <img src={logo} alt="company_logo" />
-      </div> */}
+import { Button } from "@mui/material";
+import CompanyCredits from "./CompanyCredits";
 
-      <div>{open ? "company credits" : <CompanyCredits />}</div>
+function CompanyCreditsPage() {
+  const [compName, setCompName] = useState("CompName");
+  const [compInfo, setCompInfo] = useState(
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae blanditiis tempore nostrum recusandae expedita eius repellat itaque nulla, voluptatum architecto?"
+  );
+  const [data, setData] = useState(false);
+  const [showModal, setShowModal] = useState(true);
+  const transferringData = {
+    compName,
+    setCompName,
+    compInfo,
+    setCompInfo,
+    showModal,
+    setShowModal,
+  };
+
+  return (
+    <div>
+      {showModal ? (
+        <Button onClick={() => setShowModal(!showModal)}>Add</Button>
+      ) : (
+        <CompanyCredits transferringData={transferringData} />
+      )}
+
+      {data ? (
+        <div className="compName">
+          <div className="compName__container">
+            <h2>name</h2>
+            <pre className="compName__name_data">{compName}</pre>
+            <h2>info</h2>
+            <pre className="compName__info_data">{compInfo}</pre>
+            <Button onClick={() => setShowModal(!showModal)}>exit</Button>
+          </div>
+
+          <img src={logo} alt="" className="compName__img" />
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }

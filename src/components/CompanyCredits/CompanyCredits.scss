@@ -1,5 +1,41 @@
-.company__credits {
+.compName {
+  max-width: 1640px;
+  margin: 0 0;
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
+  align-items: start;
+  &__container {
+    max-width: 70%;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+  }
+  &__info_data {
+    white-space: normal;
+  }
+  &__img {
+    width: 30%;
+    opacity: 1;
+  }
+}
+
+.company__modal {
+  background-color: antiquewhite;
+  &_bg {
+    position: fixed;
+    inset: 0;
+    background-color: gray;
+    opacity: 0.8;
+  }
+  &_window {
+    position: fixed;
+    inset: 40;
+    padding: 50px;
+    margin: 0;
+    background-color: white;
+  }
+  &_form {
+    display: flex;
+    flex-direction: column;
+  }
 }

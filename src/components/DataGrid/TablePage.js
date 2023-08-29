@@ -8,7 +8,6 @@ function TablePage() {
   const { rows, columns } = useContext(DataContext);
 
   const widthForUserTable = window.screen.availWidth - 500;
-  console.log(widthForUserTable);
 
   return (
     <Box
