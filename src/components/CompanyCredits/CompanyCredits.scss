@@ -1,21 +1,33 @@
 .compName {
-  max-width: 1640px;
-  margin: 0 0;
   display: flex;
-  justify-content: space-between;
-  align-items: start;
+  align-items: center;
+  gap: 50px;
   &__container {
-    max-width: 70%;
+    width: 50%;
     height: 300px;
     display: flex;
     flex-direction: column;
   }
+
   &__info_data {
+    word-break: break-all;
     white-space: normal;
   }
-  &__img {
-    width: 30%;
-    opacity: 1;
+  .hide_btn:hover {
+    .edit_btn {
+      display: inline;
+    }
+  }
+  .hide_btn {
+    .edit_btn {
+      display: none;
+    }
+  }
+  pre {
+    margin: 0 0 0 180px;
+  }
+  &__logo {
+    width: 20%;
   }
 }
 
@@ -28,6 +40,8 @@
     opacity: 0.8;
   }
   &_window {
+    width: 500px;
+    height: 500px;
     position: fixed;
     inset: 40;
     padding: 50px;
