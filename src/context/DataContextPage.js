@@ -32,8 +32,6 @@ function Provider({
   const queryParams = `auth=${userToken}`;
   const postUrl = `https://shop-5138f-default-rtdb.firebaseio.com/dashboard.json?${queryParams}`;
 
-  const ImageArray = dataFormatter(image);
-
   const fetchData = async () => {
     setIsLoading(false);
     try {
@@ -203,7 +201,6 @@ function Provider({
     isLogIn,
     setIsLogIn,
     isLoading,
-    ImageArray,
   };
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
 }

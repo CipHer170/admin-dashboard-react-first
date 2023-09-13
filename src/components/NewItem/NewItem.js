@@ -69,6 +69,7 @@ function NewItem({
     e.preventDefault();
     setAmount(e.target.value);
   };
+
   // ***upload image***
   const handleUploadClick = (e) => {
     if (e.target.files.length !== 0) {
@@ -85,6 +86,7 @@ function NewItem({
     e.preventDefault();
     setTitle(e.target.value);
   };
+
   // ***add new item***
   const handleAddNewItem = (event) => {
     event.preventDefault();

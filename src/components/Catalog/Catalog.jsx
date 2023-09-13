@@ -1,35 +1,16 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "./Catalog.css";
 import { Button, Stack, Typography } from "@mui/material";
 import { BsCloudUpload } from "react-icons/bs";
 import { DataContext } from "../../context/DataContextPage";
 import axios from "axios";
-
-function Catalog({
-  price,
-  description,
-  title,
-  setPrice,
-  setTitle,
-  setDescription,
-  image,
-  setImage,
-  amount,
-  setAmount,
-}) {
-  const imgGetter = useRef(null);
-  const {
-    rows,
-    open,
-    setOpen,
-    createData,
-    edit,
-    updateData,
-    deleteData,
-    queryParams,
-  } = useContext(DataContext);
+import AddImageBtn from "./AddImageBtn";
+import { dataFormatter } from "../../context/DataContextPage";
+function Catalog({ title, image, setImage }) {
+  const { setOpen, edit, queryParams } = useContext(DataContext);
   const handleClose = () => setOpen(false);
   const [num, setNum] = useState(true);
+  const [imageAds, setImageAds] = useState();
 
   const style = {
     position: "fixed",
@@ -45,92 +26,41 @@ function Catalog({
     p: 4,
   };
 
-  function isNumber(str) {
-    if (str.trim() === "") {
-      return false;
-    }
-    return !isNaN(str);
-  }
-
-  const handleChangePrice = (event) => {
-    event.preventDefault();
-    setPrice(event.target.value);
-    if (isNumber(event.target.value)) {
-      setNum(true);
-    } else {
-      setNum(false);
-    }
-  };
-
-  const handleDescription = (e) => {
+  const handleAddNewItem = (e) => {
     e.preventDefault();
-    setDescription(e.target.value);
+    const newAddImage = { imageAds };
+    createAdd(newAddImage);
   };
 
-  const handleAmount = (e) => {
-    e.preventDefault();
-    setAmount(e.target.value);
+  const fetchAddImage = async () => {
+    try {
+      const response = await axios.get(
+        `https://farman-shopper-default-rtdb.asia-southeast1.firebasedatabase.app/ads.json`
+      );
+      setImageAds(dataFormatter(response.data));
+    } catch (error) {
+      console.warn(error);
+    }
   };
-  // ***upload image***
-  const handleUploadClick = (e) => {
-    if (e.target.files.length !== 0) {
-      const reader = new FileReader();
-      reader.readAsDataURL(e.target.files[0]);
-      reader.onload = function () {
-        setImage(reader.result);
-      };
-      e.target = null;
+  const createAdd = async (items) => {
+    try {
+      const response = await axios.post(
+        `https://farman-shopper-default-rtdb.asia-southeast1.firebasedatabase.app/ads.json`,
+        // rows
+        items
+      );
+      const newAdd = { ...items, id: response?.data?.name };
+      const updatedAdd = [...imageAds, newAdd];
+      setImageAds(updatedAdd);
+    } catch (error) {
+      alert("Bug Bug Bug Bug");
     }
   };
 
-  const handleTitle = (e) => {
-    e.preventDefault();
-    setTitle(e.target.value);
-  };
-  // ***add new item***
-  const handleAddNewItem = (event) => {
-    event.preventDefault();
-    const newProduct = { title, description, price, image, amount };
-
-    if (num && title.trim().length > 0 && price >= 1 && amount >= 1) {
-      if (rows !== "") {
-        if (edit !== null) {
-          updateData(edit, newProduct);
-        } else {
-          createData(newProduct);
-        }
-      }
-      setOpen(false);
-    } else {
-      alert("check all fileds");
-    }
-  };
-
-  const handleClickPickImg = () => {
-    imgGetter.current.click();
-  };
-  // const showImg =
-  const handleDeleteImage = (e, id) => {
-    deleteData(e);
-  };
-  // *** styled btn***
-  const styledBtn = {
-    width: "inherit",
-    height: "inherit",
-    padding: "0",
-    position: "relative",
-  };
-  const styledImg = {
-    paddingLeft: "10px",
-    width: "100%",
-    height: "100%",
-  };
-
-  const postUrl = `https://shop-5138f-default-rtdb.firebaseio.com/ads.json?${queryParams}`;
-  const addAds = async () => {
-    const res = await axios.post(postUrl);
-  };
-
+  useEffect(() => {
+    fetchAddImage();
+  }, []);
+  console.log(imageAds, "img adds", "id=>", imageAds);
   return (
     <div className="catalog">
       <Stack
@@ -140,43 +70,7 @@ function Catalog({
         alignItems={"end"}
       >
         {/* image button/image */}
-        <Stack height={"100%"} width={"50%"} margin={0} padding={0}>
-          <input
-            ref={imgGetter}
-            className="hidden"
-            type="file"
-            onChange={(e) => handleUploadClick(e)}
-          />
-          <Button
-            onClick={!image ? handleClickPickImg : () => 0}
-            sx={styledBtn}
-          >
-            {image ? (
-              <Stack width={"100%"} height={"100%"}>
-                <img src={image} alt={title} style={styledImg} />
-                {/* **** u r here 6.07.2023  button to delete image*/}
-                <Button
-                  sx={{
-                    position: "absolute",
-                    right: "0",
-                    // backgroundColor: "#3333",
-                    borderRadius: "50px",
-                    minWidth: "20%",
-                    minHeight: "20%",
-                  }}
-                  onClick={() => setImage("")}
-                >
-                  X
-                </Button>
-              </Stack>
-            ) : (
-              <Stack textAlign={"center"}>
-                <Typography>Product image</Typography>
-                <BsCloudUpload />
-              </Stack>
-            )}
-          </Button>
-        </Stack>
+        <AddImageBtn imageAds={imageAds} setImageAds={setImageAds} />
 
         {/* save/update btn */}
         <Stack sx={{ height: "40px", display: "flex", flexDirection: "row" }}>
@@ -186,7 +80,7 @@ function Catalog({
         </Stack>
       </Stack>
       <div className="preview__ads">
-        <img src={image} alt="" />
+        <img src={imageAds} alt="" />
       </div>
     </div>
   );
